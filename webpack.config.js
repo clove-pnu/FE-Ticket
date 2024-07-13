@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   entry: './src/index.tsx',
@@ -28,6 +29,13 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
+    }),
+    new ModuleFederationPlugin({
+      name: 'hostApp',
+      remotes: {
+        remoteApp: 'remoteApp@http://localhost:3001/remoteEntry.js',
+      },
+      shared: ['react', 'react-dom'],
     }),
   ],
   devServer: {
