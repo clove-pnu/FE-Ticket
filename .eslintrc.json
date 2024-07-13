@@ -8,7 +8,8 @@
         "plugin:jsx-a11y/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
-        "plugin:import/typescript"
+        "plugin:import/typescript",
+        "plugin:tailwindcss/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
