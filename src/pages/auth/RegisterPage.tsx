@@ -1,17 +1,21 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import RegisterForm from '../../components/auth/RegisterForm';
 
 export default function RegisterPage() {
   const [id, setId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(id, password, confirmPassword);
+
     setId('');
     setPassword('');
     setConfirmPassword('');
+
+    navigate('/');
   };
 
   return (

@@ -3,3 +3,7 @@ export interface Pod {
   status: string;
   namespace: string
 }
+
+export interface Auth {
+  isLogin: boolean;
+}

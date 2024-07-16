@@ -1,19 +1,32 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import {
+  Link, useLocation, useNavigate,
+} from 'react-router-dom';
 import LoginForm from '../../components/auth/LoginForm';
+import { setToken } from '../../utils/auth';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function LoginPage() {
   const [id, setId] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { auth, setAuth } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (auth.isLogin) {
+      navigate(location.state?.from || '/', { replace: true });
+    }
+  }, [auth.isLogin, location.state?.from, navigate]);
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    localStorage.setItem('userId', 'test');
-    localStorage.setItem('userType', '1');
-
     setId('');
     setPassword('');
+
+    setToken({ token: 'Bearer TestToken!!' });
+    setAuth({ isLogin: true });
   };
 
   return (

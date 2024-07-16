@@ -1,42 +1,27 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-interface UserStatus {
-  id: string;
-  type: number;
-  isLogin: boolean;
-}
-
-const initialUserStatus: UserStatus = {
-  id: null,
-  type: null,
-  isLogin: false,
-};
+import { useEffect } from 'react';
+import { deleteToken, getExistToken } from '../../utils/auth';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function UserStatusBar() {
-  const [userStatus, setUserStatus] = useState<UserStatus>(initialUserStatus);
+  const { auth, setAuth } = useAuth();
 
   useEffect(() => {
-    const id = localStorage.getItem('userId');
-    const type = localStorage.getItem('userType');
+    const token = getExistToken();
 
-    if (id !== null && type !== null) {
-      setUserStatus({
-        id,
-        type: Number(type),
-        isLogin: true,
-      });
+    if (token) {
+      setAuth({ isLogin: true });
     }
   }, []);
 
   const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userType');
-    setUserStatus(initialUserStatus);
+
+    deleteToken();
+    setAuth({ isLogin: false });
   };
 
-  if (!userStatus.isLogin) {
+  if (!auth.isLogin) {
     return (
       <div className="p-2">
         <Link to="/login">로그인</Link>
@@ -47,13 +32,14 @@ export default function UserStatusBar() {
   return (
     <div className="flex flex-row gap-2 p-2">
       <div>
-        아이디:
-        {userStatus.id}
+        아이디: 테스트 아이디
       </div>
       <div>
-        사용자 타입:
-        {userStatus.type}
+        사용자 타입: 테스트 타입
       </div>
+      <Link to="./owner">
+        판매자 페이지
+      </Link>
       <div>
         <button
           type="button"
