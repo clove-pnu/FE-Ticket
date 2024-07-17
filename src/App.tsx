@@ -7,6 +7,7 @@ import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/SignupPage';
 import { AuthProvider } from './hooks/useAuth';
 import PrivateRoute from './pages/auth/PrivateRoute';
+import PodDetailPage from './pages/deploy/PodDetailPage';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
               {/* Deployment */}
               <Route path="/owner" element={<OwnerPage />} />
               <Route path="/owner/deploy" element={<DeployPage />} />
+              <Route path="/owner/podDetail/:podName" element={<PodDetailPage />} />
             </Route>
 
             {/* Authentication */}
