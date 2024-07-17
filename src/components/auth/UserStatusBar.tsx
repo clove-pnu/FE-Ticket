@@ -37,9 +37,11 @@ export default function UserStatusBar() {
       <div>
         사용자 타입: 테스트 타입
       </div>
+      <div className="border border-gray-200" />
       <Link to="./owner">
         판매자 페이지
       </Link>
+      <div className="border border-gray-200" />
       <div>
         <button
           type="button"
