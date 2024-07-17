@@ -1,5 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { authInstance } from './instance';
+import { SignUpResponse, TokenResponse } from '../utils/type';
 
 interface LoginParams {
   email: string;
@@ -9,17 +10,6 @@ interface LoginParams {
 interface ReissueParams {
   accessToken: string;
   refreshToken: string;
-}
-
-interface SignUpResponse {
-  email: string;
-}
-
-interface TokenResponse {
-  grantType: string;
-  accessToken: string;
-  refreshToken: string;
-  accessTokenExpiresIn: number;
 }
 
 export async function signUp({
