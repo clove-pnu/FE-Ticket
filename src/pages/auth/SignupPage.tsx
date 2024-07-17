@@ -34,7 +34,7 @@ export default function RegisterPage() {
 
   return (
     <main>
-      <div className="p-4">
+      <div className="flex flex-col gap-4 p-4">
         <h1 className="my-4 text-4xl font-bold">Register</h1>
         <RegisterForm
           email={email}

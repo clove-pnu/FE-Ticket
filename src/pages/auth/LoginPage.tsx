@@ -43,7 +43,7 @@ export default function LoginPage() {
 
   return (
     <main>
-      <div className="p-4">
+      <div className="flex flex-col items-start gap-4 p-4">
         <h1 className="my-4 text-4xl font-bold">Login</h1>
         <LoginForm
           email={email}

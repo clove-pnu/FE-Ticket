@@ -45,7 +45,10 @@ export default function RegisterForm({
           secret
           required
         />
-        <button type="submit">
+        <button
+          type="submit"
+          className="rounded-md bg-zinc-700 px-6 py-2 text-white"
+        >
           회원가입
         </button>
       </form>
