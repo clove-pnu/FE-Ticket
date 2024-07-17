@@ -7,9 +7,11 @@ export default function DeployPage() {
   };
 
   return (
-    <div>
-      배포 페이지
-      <TemplateForm handleDeploy={handleDeploy} />
-    </div>
+    <main>
+      <div>
+        배포 페이지
+        <TemplateForm handleDeploy={handleDeploy} />
+      </div>
+    </main>
   );
 }

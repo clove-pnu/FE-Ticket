@@ -1,4 +1,4 @@
-export interface Pod {
+export interface PodInfo {
   name: string;
   status: string;
   namespace: string
@@ -17,4 +17,13 @@ export interface TokenResponse {
   accessToken: string;
   refreshToken: string;
   accessTokenExpiresIn: number;
+}
+
+export interface PlayCardInfo {
+  pid: number;
+  thumbnailUrl: string;
+  title: string;
+  location: string;
+  startDate: Date;
+  endDate: Date;
 }

@@ -40,16 +40,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="my-4 text-4xl font-bold">Login</h1>
-      <LoginForm
-        email={email}
-        setEmail={setEmail}
-        password={password}
-        setPassword={setPassword}
-        handleLogin={handleLogin}
-      />
-      <Link to="/register">회원가입</Link>
-    </div>
+    <main>
+      <div className="p-4">
+        <h1 className="my-4 text-4xl font-bold">Login</h1>
+        <LoginForm
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+        />
+        <Link to="/register">회원가입</Link>
+      </div>
+    </main>
   );
 }
