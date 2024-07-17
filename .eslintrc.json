@@ -72,6 +72,7 @@
         "react/prop-types": "off",
         "@typescript-eslint/no-var-requires": "off",
         "import/prefer-default-export": "off",
-        "react/require-default-props": "off"
+        "react/require-default-props": "off",
+        "@typescript-eslint/no-explicit-any": "off"
     }
 }
