@@ -4,7 +4,6 @@ import {
   Tooltip,
   Filler,
 } from 'chart.js';
-import { callback } from 'chart.js/dist/helpers/helpers.core';
 import { Line } from 'react-chartjs-2';
 
 ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Filler);
