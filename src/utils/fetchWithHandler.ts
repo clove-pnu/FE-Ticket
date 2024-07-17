@@ -1,12 +1,12 @@
 import { AxiosResponse } from 'axios';
 
-export const fetchWithHandler = async (
-  fetchFn: (...args: any[]) => Promise<AxiosResponse>,
+export const fetchWithHandler = async <T>(
+  fetchFn: () => Promise<AxiosResponse<T>>,
   {
     onSuccess,
     onError,
   }: {
-    onSuccess: (response?: AxiosResponse) => void;
+    onSuccess: (response?: AxiosResponse<T>) => void;
     onError: (error?: unknown) => void;
   },
 ) => {

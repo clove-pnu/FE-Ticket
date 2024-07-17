@@ -1,8 +1,8 @@
 import TextInput from '../common/TextInput';
 
 interface RegisterFormProps {
-  id: string;
-  setId: React.Dispatch<React.SetStateAction<string>>;
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   confirmPassword: string;
@@ -11,8 +11,8 @@ interface RegisterFormProps {
 }
 
 export default function RegisterForm({
-  id,
-  setId,
+  email,
+  setEmail,
   password,
   setPassword,
   confirmPassword,
@@ -27,8 +27,8 @@ export default function RegisterForm({
       >
         <TextInput
           name="아이디"
-          value={id}
-          setValue={setId}
+          value={email}
+          setValue={setEmail}
           required
         />
         <TextInput
