@@ -9,7 +9,7 @@ export default function DeployPage() {
   return (
     <main>
       <div>
-        배포 페이지
+        <h1 className="text-xl font-bold">배포 페이지</h1>
         <TemplateForm handleDeploy={handleDeploy} />
       </div>
     </main>
