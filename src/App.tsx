@@ -4,7 +4,7 @@ import MainLayout from './components/common/MainLayout';
 import OwnerPage from './pages/deploy/OwnerPage';
 import DeployPage from './pages/deploy/DeployPage';
 import LoginPage from './pages/auth/LoginPage';
-import RegisterPage from './pages/auth/RegisterPage';
+import RegisterPage from './pages/auth/SignupPage';
 import { AuthProvider } from './hooks/useAuth';
 import PrivateRoute from './pages/auth/PrivateRoute';
 

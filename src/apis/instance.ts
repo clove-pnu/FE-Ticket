@@ -5,7 +5,6 @@ export const deployInstance = axios.create({
   timeout: 3000,
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ExampleToken',
   },
 });
 

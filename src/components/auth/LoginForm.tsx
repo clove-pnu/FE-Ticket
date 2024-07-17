@@ -1,16 +1,16 @@
 import TextInput from '../common/TextInput';
 
 interface LoginFormProps {
-  id: string;
-  setId: React.Dispatch<React.SetStateAction<string>>;
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
   password: string;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   handleLogin: React.FormEventHandler<HTMLFormElement>;
 }
 
 export default function LoginForm({
-  id,
-  setId,
+  email,
+  setEmail,
   password,
   setPassword,
   handleLogin,
@@ -22,9 +22,9 @@ export default function LoginForm({
         onSubmit={handleLogin}
       >
         <TextInput
-          name="아이디"
-          value={id}
-          setValue={setId}
+          name="이메일"
+          value={email}
+          setValue={setEmail}
           required
         />
         <TextInput

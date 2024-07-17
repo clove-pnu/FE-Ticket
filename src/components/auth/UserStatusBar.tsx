@@ -32,7 +32,7 @@ export default function UserStatusBar() {
   return (
     <div className="flex flex-row gap-2 p-2">
       <div>
-        아이디: 테스트 아이디
+        이메일: 테스트 이메일
       </div>
       <div>
         사용자 타입: 테스트 타입

@@ -7,7 +7,7 @@ import { setToken } from '../../utils/auth';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function LoginPage() {
-  const [id, setId] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { auth, setAuth } = useAuth();
   const location = useLocation();
@@ -22,7 +22,7 @@ export default function LoginPage() {
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setId('');
+    setEmail('');
     setPassword('');
 
     setToken({ token: 'Bearer TestToken!!' });
@@ -33,8 +33,8 @@ export default function LoginPage() {
     <div className="p-4">
       <h1 className="my-4 text-4xl font-bold">Login</h1>
       <LoginForm
-        id={id}
-        setId={setId}
+        email={email}
+        setEmail={setEmail}
         password={password}
         setPassword={setPassword}
         handleLogin={handleLogin}
