@@ -5,9 +5,9 @@ import {
 import LoginForm from '../../components/auth/LoginForm';
 import { setToken } from '../../utils/auth';
 import { useAuth } from '../../hooks/useAuth';
-// import { fetchWithHandler } from '../../utils/fetchWithHandler';
-// import { TokenResponse } from '../../utils/type';
-// import { login } from '../../apis/auth';
+import { fetchWithHandler } from '../../utils/fetchWithHandler';
+import { TokenResponse } from '../../utils/type';
+import { login } from '../../apis/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState<string>('');
@@ -25,17 +25,18 @@ export default function LoginPage() {
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // fetchWithHandler<TokenResponse>(() => login({ email, password }), {
-    //   onSuccess: (response) => {
-    //     setToken({ token: response.data.accessToken });
-    //     setAuth({ isLogin: true });
-    //   },
-    //   onError: () => {
-    //     alert('로그인에 실패하였습니다.');
-    //   },
-    // });
-    setToken({ token: 'Bearer ExampleToken!!' });
-    setAuth({ isLogin: true });
+    fetchWithHandler<TokenResponse>(() => login({ email, password }), {
+      onSuccess: (response) => {
+        setToken({
+          accessToken: response.data.accessToken,
+          accessTokenExpiresIn: response.data.accessTokenExpiresIn,
+        });
+        setAuth({ isLogin: true });
+      },
+      onError: () => {
+        alert('로그인에 실패하였습니다.');
+      },
+    });
 
     setEmail('');
     setPassword('');

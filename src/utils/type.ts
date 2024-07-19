@@ -12,11 +12,14 @@ export interface SignUpResponse {
   email: string;
 }
 
-export interface TokenResponse {
-  grantType: string;
+export interface AccessToken {
   accessToken: string;
-  refreshToken: string;
   accessTokenExpiresIn: number;
+}
+
+export interface TokenResponse extends AccessToken {
+  grantType: string;
+  refreshToken: string;
 }
 
 export interface PlayCardInfo {
