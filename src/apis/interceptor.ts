@@ -1,5 +1,5 @@
 import {
-  getExistRefreshToken, getExistToken, getTokenExpireDate, setRefreshToken, setToken,
+  getExistToken, getTokenExpireDate, setToken,
 } from '../utils/auth';
 import { fetchWithHandler } from '../utils/fetchWithHandler';
 import { reissue } from './auth';
@@ -11,15 +11,13 @@ deployInstance.interceptors.request.use(
 
     if (tokenExpireDate < Date.now()) {
       const accessToken = getExistToken();
-      const refreshToken = getExistRefreshToken();
 
-      await fetchWithHandler(() => reissue({ accessToken, refreshToken }), {
+      await fetchWithHandler(() => reissue({ accessToken }), {
         onSuccess: (response) => {
           setToken({
             accessToken: response.data.accessToken,
             accessTokenExpiresIn: response.data.accessTokenExpiresIn,
           });
-          setRefreshToken({ refreshToken: response.data.refreshToken });
         },
         onError: (error) => {
           throw error;

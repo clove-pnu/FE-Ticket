@@ -16,16 +16,4 @@ export function setToken({ accessToken, accessTokenExpiresIn }: AccessToken) {
 export function deleteToken() {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('accessTokenExpiresIn');
-
-  // need to be updated
-  localStorage.removeItem('refreshToken');
-}
-
-// need to be updated
-export function setRefreshToken({ refreshToken }: { refreshToken: string }) {
-  localStorage.setItem('refreshToken', refreshToken);
-}
-
-export function getExistRefreshToken() {
-  return localStorage.getItem('refreshToken');
 }

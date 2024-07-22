@@ -3,7 +3,7 @@ import {
   Link, useLocation, useNavigate,
 } from 'react-router-dom';
 import LoginForm from '../../components/auth/LoginForm';
-import { setRefreshToken, setToken } from '../../utils/auth';
+import { setToken } from '../../utils/auth';
 import { useAuth } from '../../hooks/useAuth';
 import { fetchWithHandler } from '../../utils/fetchWithHandler';
 import { TokenResponse } from '../../utils/type';
@@ -32,7 +32,6 @@ export default function LoginPage() {
           accessTokenExpiresIn: response.data.accessTokenExpiresIn,
         });
         setAuth({ isLogin: true });
-        setRefreshToken({ refreshToken: response.data.refreshToken });
       },
       onError: () => {
         alert('로그인에 실패하였습니다.');

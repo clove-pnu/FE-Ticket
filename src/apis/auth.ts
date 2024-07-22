@@ -9,7 +9,6 @@ interface LoginParams {
 
 interface ReissueParams {
   accessToken: string;
-  refreshToken: string;
 }
 
 export async function signUp({
@@ -32,9 +31,8 @@ export async function login({
 
 export async function reissue({
   accessToken,
-  refreshToken,
 }: ReissueParams): Promise<AxiosResponse<TokenResponse>> {
   return authInstance.post('/reissue', {
-    accessToken, refreshToken,
+    accessToken,
   });
 }
