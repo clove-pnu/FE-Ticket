@@ -15,12 +15,3 @@ export const deployInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
-deployInstance.interceptors.request.use(
-  // if expired
-  // refresh token.
-  // store new access token
-  // and continue request.
-  (config) => config,
-  (error) => Promise.reject(error),
-);
