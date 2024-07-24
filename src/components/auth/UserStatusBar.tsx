@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { deleteToken, getExistToken } from '../../utils/auth';
 import { useAuth } from '../../hooks/useAuth';
+import Divider from '../common/Divider';
 
 export default function UserStatusBar() {
   const { auth, setAuth } = useAuth();
@@ -23,25 +24,22 @@ export default function UserStatusBar() {
 
   if (!auth.isLogin) {
     return (
-      <div className="p-2">
+      <div className="px-2 py-1">
         <Link to="/login">로그인</Link>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-row gap-2 p-2">
+    <div className="flex flex-row items-center gap-4 p-2">
       <div>
-        이메일: 테스트 이메일
+        사용자 이름
       </div>
-      <div>
-        사용자 타입: 테스트 타입
-      </div>
-      <div className="border border-gray-200" />
+      <Divider />
       <Link to="./owner">
-        판매자 페이지
+        공연 관리
       </Link>
-      <div className="border border-gray-200" />
+      <Divider />
       <div>
         <button
           type="button"
