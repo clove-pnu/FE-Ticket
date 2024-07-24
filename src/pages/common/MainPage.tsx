@@ -26,12 +26,20 @@ const PlayListMockData: PlayCardInfo[] = [
     startDate: new Date(2024, 7, 1),
     endDate: new Date(2024, 7, 3),
   },
+  {
+    pid: 3,
+    thumbnailUrl: '',
+    title: '테스트 공연 3',
+    location: '테스트 장소',
+    startDate: new Date(2024, 7, 1),
+    endDate: new Date(2024, 7, 3),
+  },
 ];
 
 export default function MainPage() {
   return (
     <main>
-      <div>
+      <div className="p-4">
         <PlayList PlayCards={PlayListMockData} />
       </div>
     </main>

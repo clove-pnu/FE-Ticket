@@ -7,7 +7,7 @@ interface PlayListProps {
 
 export default function PlayList({ PlayCards }: PlayListProps) {
   return (
-    <ul className="flex flex-wrap gap-4">
+    <ul className="flex flex-wrap gap-16">
       {PlayCards.map(({
         pid,
         thumbnailUrl,
@@ -18,7 +18,6 @@ export default function PlayList({ PlayCards }: PlayListProps) {
       }) => (
         <li
           key={pid}
-          className="p-4"
         >
           <PlayCard
             pid={pid}

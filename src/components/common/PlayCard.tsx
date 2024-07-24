@@ -12,18 +12,16 @@ export default function PlayCard({
   return (
     <Link to={`/example/${pid}`}>
       <div className="flex flex-col gap-2">
-        <div className="h-80 w-56 bg-gray-300">
+        <div className="h-80 w-60 bg-clove-light">
           <img src={thumbnailUrl} alt={`${title} 포스터`} />
         </div>
-        <div>
+        <div className="flex flex-col gap-2 p-2">
           <h3 className="text-xl font-bold">{title}</h3>
-        </div>
-        <div className="flex flex-col">
           <div>{location}</div>
-          <div className="flex gap-2">
-            <div>{startDate.toLocaleDateString()}</div>
-            <div>~</div>
-            <div>{endDate.toLocaleDateString()}</div>
+          <div className="flex gap-2 text-black/50">
+            <p>{startDate.toLocaleDateString()}</p>
+            <p>~</p>
+            <p>{endDate.toLocaleDateString()}</p>
           </div>
         </div>
       </div>
