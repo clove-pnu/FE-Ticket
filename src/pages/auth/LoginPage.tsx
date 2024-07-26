@@ -44,8 +44,8 @@ export default function LoginPage() {
 
   return (
     <main>
-      <div className="flex flex-col items-start gap-4 p-4">
-        <h1 className="my-4 text-4xl font-bold">Login</h1>
+      <div className="flex flex-col items-center gap-6 p-4">
+        <Link to="/" className="my-4 text-4xl font-bold">Clove</Link>
         <LoginForm
           email={email}
           setEmail={setEmail}
@@ -53,7 +53,7 @@ export default function LoginPage() {
           setPassword={setPassword}
           handleLogin={handleLogin}
         />
-        <Link to="/register">회원가입</Link>
+        <Link className="underline" to="/register">회원가입</Link>
       </div>
     </main>
   );

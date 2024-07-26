@@ -24,11 +24,10 @@ export default function App() {
               <Route path="/owner/deploy" element={<DeployPage />} />
               <Route path="/owner/podDetail/:podName" element={<PodDetailPage />} />
             </Route>
-
-            {/* Authentication */}
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
           </Route>
+          {/* Authentication */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

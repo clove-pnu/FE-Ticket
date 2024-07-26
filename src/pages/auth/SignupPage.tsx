@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import RegisterForm from '../../components/auth/SignupForm';
 import { fetchWithHandler } from '../../utils/fetchWithHandler';
 import { signUp } from '../../apis/auth';
@@ -34,8 +34,8 @@ export default function RegisterPage() {
 
   return (
     <main>
-      <div className="flex flex-col gap-4 p-4">
-        <h1 className="my-4 text-4xl font-bold">Register</h1>
+      <div className="flex flex-col items-center gap-6 p-4">
+        <Link to="/" className="my-4 text-4xl font-bold">Clove</Link>
         <RegisterForm
           email={email}
           setEmail={setEmail}

@@ -1,3 +1,4 @@
+import Button from '../common/Button';
 import TextInput from '../common/TextInput';
 
 interface RegisterFormProps {
@@ -22,35 +23,38 @@ export default function RegisterForm({
   return (
     <div>
       <form
-        className="flex flex-col items-start gap-4"
+        className="flex flex-col items-stretch gap-12"
         onSubmit={handleRegister}
       >
-        <TextInput
-          name="아이디"
-          value={email}
-          setValue={setEmail}
-          required
-        />
-        <TextInput
-          name="비밀번호"
-          value={password}
-          setValue={setPassword}
-          secret
-          required
-        />
-        <TextInput
-          name="비밀번호 확인"
-          value={confirmPassword}
-          setValue={setConfirmPassword}
-          secret
-          required
-        />
-        <button
-          type="submit"
-          className="rounded-md bg-zinc-700 px-6 py-2 text-white"
-        >
-          회원가입
-        </button>
+        <div className="flex flex-col gap-6">
+          <TextInput
+            name="아이디"
+            value={email}
+            setValue={setEmail}
+            required
+          />
+          <TextInput
+            name="비밀번호"
+            value={password}
+            setValue={setPassword}
+            secret
+            required
+          />
+          <TextInput
+            name="비밀번호 확인"
+            value={confirmPassword}
+            setValue={setConfirmPassword}
+            secret
+            required
+          />
+        </div>
+        <div className="flex flex-col items-center">
+          <Button
+            type="submit"
+          >
+            회원가입
+          </Button>
+        </div>
       </form>
     </div>
   );
