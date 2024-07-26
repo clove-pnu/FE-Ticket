@@ -79,5 +79,6 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/require-default-props': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };
