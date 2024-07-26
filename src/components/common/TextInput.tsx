@@ -14,10 +14,15 @@ export default function TextInput({
   secret = false,
 }: TextInputProps) {
   return (
-    <div className="flex flex-col">
-      <label htmlFor={name}>{name}</label>
+    <div className="flex flex-row items-center gap-2 border-b-2 border-black py-2">
+      <label
+        className="px-2 font-bold"
+        htmlFor={name}
+      >
+        {name}
+      </label>
       <input
-        className="rounded-md border border-black px-2 py-1"
+        className="rounded-md px-2 py-1 focus:outline-none"
         type={secret ? 'password' : 'text'}
         name={name}
         id={name}

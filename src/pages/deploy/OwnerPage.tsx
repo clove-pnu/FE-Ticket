@@ -9,7 +9,7 @@ export default function OwnerPage() {
   const [podList, setPodList] = useState<PodInfo[]>([]);
 
   useEffect(() => {
-    fetchWithHandler<PodInfo[]>(() => getPods({ namespace: 'default' }), {
+    fetchWithHandler<PodInfo[]>(() => getPods({ namespace: 'test1234' }), {
       onSuccess: (response) => {
         setPodList(response.data);
       },
