@@ -28,7 +28,7 @@ export default function RegisterForm({
       >
         <div className="flex flex-col gap-6">
           <TextInput
-            name="아이디"
+            name="이메일"
             value={email}
             setValue={setEmail}
             required
