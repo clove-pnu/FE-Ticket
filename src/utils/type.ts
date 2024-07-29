@@ -43,5 +43,7 @@ export interface DeployedPlay {
 }
 
 export interface Template {
-
+  name: string;
+  type: string;
+  description: string;
 }

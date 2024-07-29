@@ -1,42 +1,56 @@
+import { concertTemplate, exhibitionTemplate, sportsTemplate } from '../../utils/template';
+import Button from '../common/Button';
+import TemplateCard from './TemplateCard';
+
 interface TemplateOptionProps {
-  handleDeploy: React.FormEventHandler<HTMLFormElement>
+  selectedTemplateType: string;
+  setSelectedTemplateType: React.Dispatch<React.SetStateAction<string>>;
+  handleSubmit: React.FormEventHandler<HTMLFormElement>
 }
 
 export default function TemplateForm({
-  handleDeploy,
+  selectedTemplateType,
+  setSelectedTemplateType,
+  handleSubmit,
 }: TemplateOptionProps) {
   return (
     <form
       className="flex flex-col gap-4"
-      onSubmit={handleDeploy}
+      onSubmit={handleSubmit}
     >
-      <div className="flex flex-col gap-2 py-4">
+      <div className="flex flex-col gap-6 py-4">
         <div>
-          <label htmlFor="template0">
-            <input type="radio" name="template" id="template0" value={0} defaultChecked />
-            템플릿 0
-          </label>
+          <TemplateCard
+            name={concertTemplate.name}
+            type={concertTemplate.type}
+            description={concertTemplate.description}
+            selectedTemplateType={selectedTemplateType}
+            setSelectedTemplateType={setSelectedTemplateType}
+          />
         </div>
         <div>
-          <label htmlFor="template1">
-            <input type="radio" name="template" id="template1" value={1} />
-            템플릿 1
-          </label>
+          <TemplateCard
+            name={sportsTemplate.name}
+            type={sportsTemplate.type}
+            description={sportsTemplate.description}
+            selectedTemplateType={selectedTemplateType}
+            setSelectedTemplateType={setSelectedTemplateType}
+          />
         </div>
         <div>
-          <label htmlFor="template2">
-            <input type="radio" name="template" id="template2" value={2} />
-            템플릿 2
-          </label>
+          <TemplateCard
+            name={exhibitionTemplate.name}
+            type={exhibitionTemplate.type}
+            description={exhibitionTemplate.description}
+            selectedTemplateType={selectedTemplateType}
+            setSelectedTemplateType={setSelectedTemplateType}
+          />
         </div>
       </div>
       <div className="flex justify-end">
-        <button
-          className="rounded-md bg-zinc-700 px-6 py-2 text-white"
-          type="submit"
-        >
-          배포
-        </button>
+        <Button type="submit">
+          다음
+        </Button>
       </div>
     </form>
   );
