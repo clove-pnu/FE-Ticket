@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { PlayCardInfo } from '../../utils/type';
+import { Play } from '../../utils/type';
 
 export default function PlayCard({
   pid,
@@ -8,7 +8,7 @@ export default function PlayCard({
   location,
   startDate,
   endDate,
-}: PlayCardInfo) {
+}: Play) {
   return (
     <Link to={`/example/${pid}`}>
       <div className="flex flex-col gap-2">

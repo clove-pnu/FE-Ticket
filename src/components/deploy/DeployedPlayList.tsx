@@ -1,8 +1,8 @@
-import { DeployedPlayCardInfo } from '../../utils/type';
+import { DeployedPlay } from '../../utils/type';
 import DeployedPlayCard from './DeployedPlayCard';
 
 interface DeployedPlayListProps {
-  deployedPlays: DeployedPlayCardInfo[];
+  deployedPlays: DeployedPlay[];
 }
 
 export default function DeployedPlayList({ deployedPlays }: DeployedPlayListProps) {

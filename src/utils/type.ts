@@ -22,7 +22,7 @@ export interface TokenResponse extends AccessToken {
   refreshToken: string;
 }
 
-export interface PlayCardInfo {
+export interface Play {
   pid: number;
   thumbnailUrl: string;
   title: string;
@@ -31,7 +31,7 @@ export interface PlayCardInfo {
   endDate: Date;
 }
 
-export interface DeployedPlayCardInfo {
+export interface DeployedPlay {
   pid: number;
   thumbnailUrl: string;
   title: string;
@@ -40,4 +40,8 @@ export interface DeployedPlayCardInfo {
   totalSeatCount: number;
   status: string;
   deployDate: Date;
+}
+
+export interface Template {
+
 }

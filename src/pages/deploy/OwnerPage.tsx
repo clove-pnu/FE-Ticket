@@ -1,26 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { PodInfo } from '../../utils/type';
-import PodList from '../../components/deploy/PodList';
-import { fetchWithHandler } from '../../utils/fetchWithHandler';
-import { getPods } from '../../apis/deploy';
 import DeployedPlayList from '../../components/deploy/DeployedPlayList';
 import LinkButton from '../../components/common/LinkButton';
 
 export default function OwnerPage() {
-  const [podList, setPodList] = useState<PodInfo[]>([]);
-
-  // useEffect(() => {
-  //   fetchWithHandler<PodInfo[]>(() => getPods({ namespace: 'test1234' }), {
-  //     onSuccess: (response) => {
-  //       setPodList(response.data);
-  //     },
-  //     onError: () => {
-  //       alert('정보를 가져오는 데 실패하였습니다.');
-  //     },
-  //   });
-  // }, []);
-
   return (
     <main>
       <div>

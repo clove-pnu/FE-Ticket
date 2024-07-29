@@ -1,7 +1,7 @@
 import PlayList from '../../components/common/PlayList';
-import { PlayCardInfo } from '../../utils/type';
+import { Play } from '../../utils/type';
 
-const PlayListMockData: PlayCardInfo[] = [
+const PlayListMockData: Play[] = [
   {
     pid: 0,
     thumbnailUrl: '',

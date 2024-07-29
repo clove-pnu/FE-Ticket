@@ -1,8 +1,8 @@
-import { PlayCardInfo } from '../../utils/type';
+import { Play } from '../../utils/type';
 import PlayCard from './PlayCard';
 
 interface PlayListProps {
-  PlayCards: PlayCardInfo[];
+  PlayCards: Play[];
 }
 
 export default function PlayList({ PlayCards }: PlayListProps) {
