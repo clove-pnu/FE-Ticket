@@ -30,3 +30,14 @@ export interface PlayCardInfo {
   startDate: Date;
   endDate: Date;
 }
+
+export interface DeployedPlayCardInfo {
+  pid: number;
+  thumbnailUrl: string;
+  title: string;
+  playType: string;
+  bookedSeatCount: number;
+  totalSeatCount: number;
+  status: string;
+  deployDate: Date;
+}

@@ -8,7 +8,7 @@ export default function Button({ children, ...props }: ButtonProps) {
   return (
     <button
       type="button"
-      className="rounded-full bg-clove-light px-8 py-2 font-bold"
+      className="rounded-full bg-clove-light px-8 py-2"
       {...props}
     >
       {children}
