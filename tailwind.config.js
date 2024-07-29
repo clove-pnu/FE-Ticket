@@ -8,6 +8,16 @@ module.exports = {
           DEFAULT: '#567ace',
           light: '#b7d3e9',
         },
+        cgray: {
+          DEFAULT: '#c0c0c0',
+        },
+        cred: {
+          DEFAULT: '#ff7070',
+        },
+        cgreen: {
+          DEFAULT: '#94f692',
+          dark: '#319447',
+        },
       },
     },
   },
