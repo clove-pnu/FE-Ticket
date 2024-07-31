@@ -22,7 +22,7 @@ export default function TextInput({
         {name}
       </label>
       <input
-        className="rounded-md px-2 py-1 focus:outline-none"
+        className="grow px-2 py-1 focus:outline-none"
         type={secret ? 'password' : 'text'}
         name={name}
         id={name}
