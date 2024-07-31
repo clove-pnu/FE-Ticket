@@ -1,4 +1,5 @@
 import CategoryTitle from '../../components/common/CategoryTitle';
+import OwnerTab from '../../components/deploy/OwnerTab';
 import PlayDetail from '../../components/deploy/PlayDetail';
 import { DeployedPlayDetail } from '../../utils/type';
 
@@ -18,6 +19,10 @@ export default function PlayDetailPage() {
   return (
     <main>
       <CategoryTitle>공연 상세 정보</CategoryTitle>
+      <OwnerTab
+        pid={mockdata.pid}
+        current="PlayDetail"
+      />
       <PlayDetail
         pid={mockdata.pid}
         thumbnailUrl={mockdata.thumbnailUrl}
