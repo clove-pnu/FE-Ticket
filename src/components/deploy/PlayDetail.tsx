@@ -14,7 +14,7 @@ export default function PlayDetail({
   totalSeatCount,
 }: DeployedPlayDetail) {
   return (
-    <div className="flex flex-row gap-8 p-4">
+    <div className="flex flex-row gap-8 p-6">
       <img
         className="h-64 w-48 bg-clove"
         src={thumbnailUrl}

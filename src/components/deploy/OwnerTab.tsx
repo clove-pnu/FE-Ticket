@@ -10,7 +10,7 @@ export default function OwnerTab({
   current,
 }: OwnerTabProps) {
   return (
-    <div className="flex flex-row p-4">
+    <div className="flex flex-row border-b border-b-cgray px-4">
       <Link
         className={`p-3 ${current === 'PlayDetail' ? 'border-b-2 border-b-black' : ''}`}
         to={`/owner/playDetail/${pid}`}
