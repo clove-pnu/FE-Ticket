@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: 'NotoSansKR';
+    font-weight: 100 900;
+    src: url('./fonts/NotoSansKR-VariableFont_wght.ttf') format('truetype');
+  }
+
+  html {
+    font-family: 'NotoSansKR', sans-serif;
+  }
+}
+
 #root {
   width: 100vw;
 }
