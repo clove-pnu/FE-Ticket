@@ -18,11 +18,6 @@ const mockdata: DeployedPlayDetail = {
 export default function PlayDetailPage() {
   return (
     <main>
-      <CategoryTitle>공연 상세 정보</CategoryTitle>
-      <OwnerTab
-        pid={mockdata.pid}
-        current="PlayDetail"
-      />
       <PlayDetail
         pid={mockdata.pid}
         thumbnailUrl={mockdata.thumbnailUrl}
