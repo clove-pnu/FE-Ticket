@@ -8,6 +8,8 @@ interface RegisterFormProps {
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   confirmPassword: string;
   setConfirmPassword: React.Dispatch<React.SetStateAction<string>>;
+  userType: number;
+  setUserType: React.Dispatch<React.SetStateAction<number>>;
   handleRegister: React.FormEventHandler<HTMLFormElement>;
 }
 
@@ -18,6 +20,8 @@ export default function RegisterForm({
   setPassword,
   confirmPassword,
   setConfirmPassword,
+  userType,
+  setUserType,
   handleRegister,
 }: RegisterFormProps) {
   return (
@@ -47,6 +51,37 @@ export default function RegisterForm({
             secret
             required
           />
+          <div className="flex justify-center">회원 구분</div>
+          <div className="flex flex-row justify-evenly">
+            <label
+              className="flex flex-row gap-2"
+              htmlFor="client"
+            >
+              <input
+                type="radio"
+                name="userType"
+                id="client"
+                value={0}
+                checked={userType === 0}
+                onChange={(e) => setUserType(Number(e.target.value))}
+              />
+              예매자
+            </label>
+            <label
+              className="flex flex-row gap-2"
+              htmlFor="owner"
+            >
+              <input
+                type="radio"
+                name="userType"
+                id="owner"
+                value={1}
+                checked={userType === 1}
+                onChange={(e) => setUserType(Number(e.target.value))}
+              />
+              판매자
+            </label>
+          </div>
         </div>
         <div className="flex flex-col items-center">
           <Button

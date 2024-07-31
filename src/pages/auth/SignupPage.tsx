@@ -8,6 +8,7 @@ export default function RegisterPage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [userType, setUserType] = useState<number>(0);
   const navigate = useNavigate();
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,6 +45,8 @@ export default function RegisterPage() {
           confirmPassword={confirmPassword}
           setConfirmPassword={setConfirmPassword}
           handleRegister={handleRegister}
+          userType={userType}
+          setUserType={setUserType}
         />
       </div>
     </main>
