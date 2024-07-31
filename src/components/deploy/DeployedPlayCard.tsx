@@ -16,7 +16,7 @@ export default function DeployedPlayCard({
       <img className="h-40 w-28 bg-clove" src={thumbnailUrl} alt={`${title} 썸네일`} />
       <div className="flex grow flex-row items-center justify-between">
         <div className="flex flex-row items-center gap-6">
-          <Link to={`./podDetail/${pid}`}>
+          <Link to={`./playDetail/${pid}`}>
             <h2 className="text-xl font-bold">{title}</h2>
           </Link>
           <div className="text-sm text-gray-700">{playType}</div>

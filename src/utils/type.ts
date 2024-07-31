@@ -42,6 +42,18 @@ export interface DeployedPlay {
   deployDate: Date;
 }
 
+export interface DeployedPlayDetail {
+  pid: number;
+  thumbnailUrl: string;
+  title: string;
+  deployDate: Date;
+  status: string;
+  bookingStartDate: Date;
+  bookingEndDate: Date;
+  bookedSeatCount: number;
+  totalSeatCount: number;
+}
+
 export interface Template {
   name: string;
   type: string;

@@ -8,6 +8,8 @@ import { AuthProvider } from './hooks/useAuth';
 import PrivateRoute from './pages/auth/PrivateRoute';
 import PodDetailPage from './pages/deploy/PodDetailPage';
 import TemplatePage from './pages/deploy/TemplatePage';
+import ConcertDeployPage from './pages/deploy/ConcertDeployPage';
+import PlayDetailPage from './pages/deploy/PlayDetailPage';
 
 export default function App() {
   return (
@@ -22,7 +24,14 @@ export default function App() {
               {/* Deployment */}
               <Route path="/owner" element={<OwnerPage />} />
               <Route path="/owner/deploy" element={<TemplatePage />} />
+
+              {/* Deployment Template */}
+              <Route path="/owner/deploy/concert" element={<ConcertDeployPage />} />
+              <Route path="/owner/deploy/sports" element={<ConcertDeployPage />} />
+              <Route path="/owner/deploy/exhibition" element={<ConcertDeployPage />} />
+
               <Route path="/owner/podDetail/:podName" element={<PodDetailPage />} />
+              <Route path="/owner/playDetail/:pid" element={<PlayDetailPage />} />
             </Route>
           </Route>
           {/* Authentication */}
