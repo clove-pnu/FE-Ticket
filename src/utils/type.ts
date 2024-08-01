@@ -74,3 +74,12 @@ export interface Template {
   type: string;
   description: string;
 }
+
+export interface Ticket {
+  seatInfo: {
+    sid: number;
+    site: string;
+    column: number;
+    seatNumber: number;
+  };
+}

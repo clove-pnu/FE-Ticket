@@ -14,6 +14,8 @@ import PlayDetailLayout from './components/common/Layout/PlayDetailLayout';
 import PlayMonitorPage from './pages/deploy/PlayMonitorPage';
 import ServerMonitorPage from './pages/deploy/ServerMonitorPage';
 import PlayConfigurationPage from './pages/deploy/PlayConfigurationPage';
+import PlayDetailTicketingPage from './pages/ticketing/PlayDetailTicketingPage';
+import PlayTicketingPage from './pages/ticketing/PlayTicketingPage';
 
 export default function App() {
   return (
@@ -22,6 +24,7 @@ export default function App() {
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/" element={<MainPage />} />
+            <Route path="/play/:pid" element={<PlayDetailTicketingPage />} />
 
             {/* Need Authentication */}
             <Route element={<PrivateRoute />}>
@@ -36,13 +39,16 @@ export default function App() {
 
               <Route path="/owner/podDetail/:podName" element={<PodDetailPage />} />
 
-              {/* Play Detail */}
+              {/* Play Detail (seller) */}
               <Route element={<PlayDetailLayout />}>
                 <Route path="/owner/playDetail/:pid" element={<PlayDetailPage />} />
                 <Route path="/owner/playMonitor/:pid" element={<PlayMonitorPage />} />
                 <Route path="/owner/serverMonitor/:pid" element={<ServerMonitorPage />} />
                 <Route path="/owner/playConfiguration/:pid" element={<PlayConfigurationPage />} />
               </Route>
+
+              {/* Play Ticketing */}
+              <Route path="/play/:pid/ticketing" element={<PlayTicketingPage />} />
             </Route>
           </Route>
           {/* Authentication */}

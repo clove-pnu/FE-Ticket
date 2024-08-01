@@ -5,6 +5,7 @@ export default function PlayDetailTicketingPage() {
   return (
     <main>
       <PlayDetailHeader
+        type="full"
         pid={0}
         thumbnailUrl=""
         title="공연 제목"

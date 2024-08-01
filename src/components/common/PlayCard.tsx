@@ -10,7 +10,7 @@ export default function PlayCard({
   endDate,
 }: Play) {
   return (
-    <Link to={`/example/${pid}`}>
+    <Link to={`/play/${pid}`}>
       <div className="flex flex-col gap-2">
         <div className="h-80 w-60 bg-clove">
           <img src={thumbnailUrl} alt={`${title} 포스터`} />

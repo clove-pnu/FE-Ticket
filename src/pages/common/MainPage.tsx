@@ -1,4 +1,5 @@
 import PlayList from '../../components/common/PlayList';
+import Ticketing from '../../components/ticket/Ticketing';
 import { Play } from '../../utils/type';
 
 const PlayListMockData: Play[] = [
