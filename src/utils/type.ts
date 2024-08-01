@@ -54,6 +54,21 @@ export interface DeployedPlayDetail {
   totalSeatCount: number;
 }
 
+export interface TicketingPlayDetail {
+  pid: number;
+  thumbnailUrl: string;
+  title: string;
+  bookingStartDate: Date;
+  bookingEndDate: Date;
+  bookedSeatCount: number;
+  totalSeatCount: number;
+  startDate: Date;
+  endDate: Date;
+  price: number;
+  cast: string;
+  venue: string;
+}
+
 export interface Template {
   name: string;
   type: string;
