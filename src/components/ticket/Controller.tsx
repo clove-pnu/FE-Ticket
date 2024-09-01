@@ -1,3 +1,5 @@
+import styles from '../styles/Controller.module.css';
+
 interface ControllerProps {
   setZoom: React.Dispatch<React.SetStateAction<number>>
 }
@@ -5,12 +7,12 @@ interface ControllerProps {
 export default function Controller({ setZoom }: ControllerProps) {
   return (
     <div
-      className="absolute right-4 top-4 flex flex-col gap-1"
+      className={styles.container}
     >
 
       <button
         type="button"
-        className="size-8 border border-black bg-cgray"
+        className={styles.button}
         onClick={() => setZoom((prev) => (prev < 200 ? prev + 25 : prev))}
         onMouseDown={(e) => e.stopPropagation()}
       >
@@ -18,7 +20,7 @@ export default function Controller({ setZoom }: ControllerProps) {
       </button>
       <button
         type="button"
-        className="size-8 border border-black bg-cgray"
+        className={styles.button}
         onClick={() => setZoom((prev) => (prev > 100 ? prev - 25 : prev))}
         onMouseDown={(e) => e.stopPropagation()}
       >

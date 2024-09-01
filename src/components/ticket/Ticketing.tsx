@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Controller from './Controller';
 import Seat from './Seat';
-import { Ticket } from '../../utils/type';
+import { SeatInfo } from '../../utils/type';
+import styles from '../styles/Ticketing.module.css';
 
 interface WindowPosition {
   x: number;
@@ -9,11 +10,10 @@ interface WindowPosition {
 }
 
 interface TicketingProps {
-  ticketList: Ticket;
-  setTicketList: React.Dispatch<React.SetStateAction<Ticket>>
+  seats: SeatInfo[];
 }
 
-export default function Ticketing({ ticketList, setTicketList }: TicketingProps) {
+export default function Ticketing({ seats }: TicketingProps) {
   const [zoom, setZoom] = useState<number>(100);
   const [position, setPosition] = useState<WindowPosition>({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -44,38 +44,38 @@ export default function Ticketing({ ticketList, setTicketList }: TicketingProps)
 
   return (
     <div
-      className="relative size-[640px] overflow-hidden bg-no-repeat"
+      className={styles.container}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
       <div
-        className="absolute size-full bg-contain bg-[50%_center] bg-no-repeat"
+        className={styles.content}
         style={{ transform: `translate(${(position.x / zoom) * 100}px, ${(position.y / zoom) * 100}px)` }}
       >
         <svg
-          className="absolute size-full origin-center bg-contain bg-[50%_center] bg-no-repeat"
+          className={styles.background}
           style={{
             backgroundImage: 'url("/assets/0.png")',
             transform: `scale(${zoom / 100})`,
           }}
         >
-          <Seat
-            x={220}
-            y={200}
-            setTicketList={setTicketList}
-            isSelected={false}
-          />
-          <Seat
-            x={200}
-            y={200}
-            setTicketList={setTicketList}
-            isSelected={ticketList !== null}
-          />
+          {seats.map(({
+            x, y, eventName, seatNumber, isAvailable,
+          }) => (
+            <Seat
+              key={`${eventName}-${seatNumber}`}
+              x={x}
+              y={y}
+              eventName={eventName}
+              seatNumber={seatNumber}
+              isAvailable={isAvailable}
+            />
+          ))}
         </svg>
       </div>
-      <div className="relative">
+      <div className={styles.controller}>
         <Controller
           setZoom={setZoom}
         />

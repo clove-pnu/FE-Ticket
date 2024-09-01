@@ -1,6 +1,6 @@
-import { NumberToMoney } from '../../utils/convert';
 import { TicketingPlayDetail } from '../../utils/type';
 import LinkButton from '../common/LinkButton';
+import styles from '../styles/PlayDetailHeader.module.css';
 
 interface PlayDetailHeaderProps extends TicketingPlayDetail {
   type: 'full' | 'compact';
@@ -8,32 +8,30 @@ interface PlayDetailHeaderProps extends TicketingPlayDetail {
 
 export default function PlayDetailHeader({
   type,
-  pid,
-  thumbnailUrl,
-  title,
+  id,
+  image,
+  name,
   bookingStartDate,
   bookingEndDate,
-  bookedSeatCount,
-  totalSeatCount,
   startDate,
   endDate,
-  price,
   cast,
   venue,
+  seatsAndPrices,
 }: PlayDetailHeaderProps) {
   if (type === 'full') {
     return (
-      <div className="flex flex-row gap-12 px-4 py-8">
+      <div className={styles.container}>
         <img
-          className="h-80 w-60 bg-clove"
-          src={thumbnailUrl}
-          alt={`${title} 썸네일`}
+          className={styles.thumbnail}
+          src={image}
+          alt={`${name} 썸네일`}
         />
-        <div className="flex grow flex-row justify-between py-4">
-          <div className="flex flex-col justify-between">
-            <div className="flex flex-col gap-4">
-              <h1 className="text-2xl font-bold">{title}</h1>
-              <div className="text-sm">
+        <div className={styles.contentContainer}>
+          <div className={styles.left}>
+            <div className={styles.titleDate}>
+              <h1 className={styles.title}>{name}</h1>
+              <div className={styles.date}>
                 <p>
                   {startDate.toLocaleDateString()}
                   {' '}
@@ -43,7 +41,7 @@ export default function PlayDetailHeader({
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className={styles.venueCast}>
               <p>{venue}</p>
               <p>
                 출연진:
@@ -52,24 +50,13 @@ export default function PlayDetailHeader({
               </p>
             </div>
           </div>
-          <div className="flex flex-row items-end">
-            <div className="flex flex-row items-center gap-2">
-              <p className="font-bold">
-                {NumberToMoney(price)}
-                {' '}
-                원
-              </p>
-              <p className="text-sm">
-                잔여
-                {' '}
-                {totalSeatCount - bookedSeatCount}
-                {' '}
-                석
-              </p>
+          <div className={styles.middle}>
+            <div className={styles.price}>
+              {seatsAndPrices}
             </div>
           </div>
-          <div className="flex flex-row items-end gap-8">
-            <div className="flex flex-col gap-2 text-sm">
+          <div className={styles.right}>
+            <div className={styles.bookingDate}>
               <p>
                 예매 시작일:
                 {' '}
@@ -81,7 +68,7 @@ export default function PlayDetailHeader({
                 {bookingEndDate.toLocaleDateString()}
               </p>
             </div>
-            <div className="font-bold">
+            <div className={styles.book}>
               <LinkButton to="./ticketing">예매하기</LinkButton>
             </div>
           </div>
@@ -95,13 +82,13 @@ export default function PlayDetailHeader({
       <div className="flex flex-row gap-12 px-4 py-8">
         <img
           className="h-48 w-36 bg-clove"
-          src={thumbnailUrl}
-          alt={`${title} 썸네일`}
+          src={image}
+          alt={`${name} 썸네일`}
         />
         <div className="flex flex-row items-center">
           <div className="flex flex-row gap-8">
             <div className="flex flex-col gap-4">
-              <h1 className="text-2xl font-bold">{title}</h1>
+              <h1 className="text-2xl font-bold">{name}</h1>
               <div className="text-sm">
                 <p>
                   {startDate.toLocaleDateString()}

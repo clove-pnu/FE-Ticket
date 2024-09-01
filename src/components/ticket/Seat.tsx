@@ -1,41 +1,74 @@
-import { Ticket } from '../../utils/type';
-
-interface SeatInfo {
-  x: number;
-  y: number;
-  setTicketList: React.Dispatch<React.SetStateAction<Ticket>>
-  isSelected: boolean;
-}
+import { useState } from 'react';
+import { SeatInfo } from '../../utils/type';
+import useTicketDispatch from '../../hooks/useTicketDispatch';
 
 export default function Seat({
   x,
   y,
-  setTicketList,
-  isSelected,
+  eventName,
+  seatNumber,
+  isAvailable,
 }: SeatInfo) {
+  const [isSelected, setIsSelected] = useState(false);
+  const ticketDispatch = useTicketDispatch();
+
+  const handleSelect = () => {
+    ticketDispatch({
+      type: 'ADD',
+      payload: {
+        eventName,
+        seatNumber,
+      },
+    });
+    setIsSelected(true);
+  };
+
+  const handleUnSelect = () => {
+    ticketDispatch({
+      type: 'REMOVE',
+      payload: {
+        eventName,
+        seatNumber,
+      },
+    });
+    setIsSelected(false);
+  };
+
+  if (!isAvailable) {
+    return (
+      <circle
+        cx={x}
+        cy={y}
+        r={8}
+        fill="var(--color-gray)"
+        strokeWidth={1}
+      />
+    );
+  }
+
+  if (!isSelected) {
+    return (
+      <circle
+        cx={x}
+        cy={y}
+        r={8}
+        fill="var(--color-blue)"
+        stroke="#000"
+        strokeWidth={1}
+        onClick={handleSelect}
+      />
+    );
+  }
+
   return (
     <circle
       cx={x}
       cy={y}
       r={8}
-      fill={`${isSelected ? '#94f692' : '#567ace'}`}
-      stroke={`${isSelected && '#000'}`}
+      fill="var(--color-green)"
+      stroke="#000"
       strokeWidth={1}
-      onClick={() => {
-        if (isSelected) {
-          setTicketList(null);
-          return;
-        }
-
-        setTicketList({
-          seatInfo: {
-            sid: 0,
-            site: 'A',
-            column: 12,
-            seatNumber: 8,
-          },
-        });
-      }}
+      onClick={handleUnSelect}
     />
   );
 }

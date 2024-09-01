@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   extends: [
     'airbnb',
@@ -11,7 +9,6 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'plugin:tailwindcss/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -34,9 +31,6 @@ module.exports = {
     },
     react: {
       version: 'detect',
-    },
-    tailwindcss: {
-      config: path.join(__dirname, './tailwind.config.js'),
     },
   },
   plugins: [

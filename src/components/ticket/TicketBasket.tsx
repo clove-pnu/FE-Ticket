@@ -1,38 +1,23 @@
-import { Ticket } from '../../utils/type';
+import useTicket from '../../hooks/useTicket';
 import Button from '../common/Button';
+import styles from '../styles/TicketBasket.module.css';
 
-interface TicketBasketProps {
-  ticketList: Ticket[];
-}
+export default function TicketBasket() {
+  const tickets = useTicket();
 
-export default function TicketBasket({ ticketList }: TicketBasketProps) {
   return (
-    <div className="flex grow flex-col p-4">
-      <div className="py-4 text-2xl font-bold">선택한 좌석</div>
-      <ul className="flex grow flex-col gap-4">
-        {ticketList.map((t) => (
+    <div className={styles.container}>
+      <div className={styles.title}>선택한 좌석</div>
+      <ul className={styles.ticketList}>
+        {tickets && tickets.map(({ eventName, seatNumber }) => (
           <li
-            key={t.seatInfo.sid}
-            className="flex flex-row items-center justify-between py-4"
+            key={`${eventName}-${seatNumber}`}
+            className={styles.ticketInfo}
           >
-            <div className="flex flex-row gap-4">
-              <div>
-                {t.seatInfo.site}
-                {' '}
-                구역
-              </div>
-              <div>
-                {t.seatInfo.column}
-                {' '}
-                열
-              </div>
-              <div>
-                {t.seatInfo.seatNumber}
-                {' '}
-                번
-              </div>
+            <div>
+              {seatNumber}
             </div>
-            <div className="text-xl font-bold">
+            <div className={styles.price}>
               110,000
               {' '}
               원
@@ -40,12 +25,12 @@ export default function TicketBasket({ ticketList }: TicketBasketProps) {
           </li>
         ))}
       </ul>
-      {ticketList.length > 0 && (
-        <div className="flex flex-row justify-between p-4 text-xl font-bold">
+      {tickets && tickets.length > 0 && (
+        <div className={styles.total}>
           <div>
             총
             {' '}
-            {ticketList.length}
+            {tickets.length}
             {' '}
             개
           </div>
@@ -56,7 +41,7 @@ export default function TicketBasket({ ticketList }: TicketBasketProps) {
           </div>
         </div>
       )}
-      <div className="flex flex-col font-bold">
+      <div className={styles.book}>
         <Button>예매하기</Button>
       </div>
     </div>
