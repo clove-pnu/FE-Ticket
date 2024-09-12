@@ -23,7 +23,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1rem 0;
 }
 
 .titleDate {
@@ -49,17 +48,23 @@
 
 .middle {
   display: flex;
-  flex-direction: row;
-  align-items: end;
-  padding: 1rem 0;
+  flex-direction: column;
+  justify-content: end;
+  gap: 1rem;
+}
+
+.eventTimeTitle,
+.priceTitle {
+  margin-bottom: 0.5rem;
+}
+
+.eventTime {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 }
 
 .price {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 700;
+  margin-top: 0.25rem;
 }
 
 .right {
@@ -67,7 +72,6 @@
   flex-direction: row;
   align-items: end;
   gap: 2rem;
-  padding: 1rem 0;
 }
 
 .bookingDate {

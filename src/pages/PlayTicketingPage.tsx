@@ -16,10 +16,23 @@ export default function PlayTicketingPage() {
         name="공연 제목"
         bookingStartDate={new Date(2024, 0, 1)}
         bookingEndDate={new Date(2024, 0, 1)}
-        eventTime={new Date(2024, 0, 1, 3, 24)}
+        eventTime={[new Date(2024, 0, 1, 3, 24), new Date(2024, 0, 2, 3, 24)]}
         startDate={new Date(2024, 0, 1)}
         endDate={new Date(2024, 0, 1)}
-        seatsAndPrices="A1:$100,B1:$80"
+        seatsAndPrices={[
+          {
+            id: 1,
+            section: 'A',
+            price: 100,
+            count: 50,
+          },
+          {
+            id: 2,
+            section: 'B',
+            price: 50,
+            count: 100,
+          },
+        ]}
         cast="OOO, OOO"
         venue="공연장"
       />

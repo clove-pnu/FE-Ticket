@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
   entry: './src/index.tsx',
@@ -48,12 +49,25 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
+    new ModuleFederationPlugin({
+      name: 'ticket',
+      filename: 'remoteEntry.js',
+      remotes: {
+        auth: 'auth@http://localhost:3001/remoteEntry.js',
+        // When Build
+        // auth: 'auth@http://34.47.117.26/page/auth/remoteEntry.js',
+      },
+      exposes: {
+        './PlayDetailTicketingPage': './src/pages/PlayDetailTicketingPage',
+        './PlayTicketingPage': './src/pages/PlayTicketingPage',
+        './TicketProvider': './src/stores/ticket',
+        './MyTicketPage': './src/pages/MyTicketPage',
+      },
+      shared: ['react', 'react-dom', 'react-router-dom', 'axios'],
+    }),
   ],
   devServer: {
     static: [
-      {
-        directory: path.join(__dirname, 'public'),
-      },
       {
         directory: path.join(__dirname, 'dist'),
       },

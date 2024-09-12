@@ -1,0 +1,38 @@
+.container {
+  padding: 1rem 2rem;
+}
+
+.ticket {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2rem 0;
+}
+
+.eventName {
+  margin: 1rem 0;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.cancelContainer {
+  display: flex;
+  align-items: center;
+}
+
+.cancel {
+  cursor: pointer;
+  border: 0;
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  background: var(--color-red);
+}

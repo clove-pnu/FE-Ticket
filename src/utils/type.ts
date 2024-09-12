@@ -8,6 +8,13 @@ export interface TicketAction {
   payload: Ticket;
 }
 
+export interface SeatsAndPrices {
+  id: number;
+  section: string;
+  price: number;
+  count: number;
+}
+
 export interface TicketingPlayDetail {
   id: number;
   name: string;
@@ -15,8 +22,8 @@ export interface TicketingPlayDetail {
   cast: string;
   description: string;
   venue: string;
-  seatsAndPrices: string;
-  eventTime: Date;
+  seatsAndPrices: SeatsAndPrices[];
+  eventTime: Date[];
   startDate: Date;
   endDate: Date;
   bookingStartDate: Date;
@@ -29,4 +36,11 @@ export interface SeatInfo {
   eventName: string;
   seatNumber: string;
   isAvailable: boolean;
+}
+
+export interface ReservedTicket {
+  id: number;
+  seatNumber: number;
+  eventName: string;
+  section: string;
 }

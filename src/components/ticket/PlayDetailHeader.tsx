@@ -11,6 +11,7 @@ export default function PlayDetailHeader({
   id,
   image,
   name,
+  eventTime,
   bookingStartDate,
   bookingEndDate,
   startDate,
@@ -49,10 +50,42 @@ export default function PlayDetailHeader({
                 {cast}
               </p>
             </div>
+            <div>
+              <div className={styles.eventTimeTitle}>회차정보</div>
+              <ul>
+                {eventTime.map((evt, index) => (
+                  <li
+                    key={evt.toLocaleTimeString()}
+                    className={styles.eventTime}
+                  >
+                    {index + 1}
+                    회차:
+                    {' '}
+                    {evt.toLocaleTimeString()}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
           <div className={styles.middle}>
-            <div className={styles.price}>
-              {seatsAndPrices}
+            <div>
+              <div className={styles.priceTitle}>좌석 별 가격</div>
+              <ul>
+                {seatsAndPrices.map(({ id: sectionId, section, price }) => (
+                  <li
+                    key={sectionId}
+                    className={styles.price}
+                  >
+                    {section}
+                    {' '}
+                    구역:
+                    {' '}
+                    {price}
+                    {' '}
+                    원
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
           <div className={styles.right}>
