@@ -1,15 +1,25 @@
+import { PlayDescription } from '../../utils/type';
 import styles from '../styles/PlayDetailContent.module.css';
 
 interface PlayDetailContentProps {
-  description: string;
+  data: PlayDescription;
 }
 
-export default function PlayDetailContent({
-  description,
-}: PlayDetailContentProps) {
+export default function PlayDetailContent({ data }: PlayDetailContentProps) {
+  if (!data) {
+    return (
+      <div>Loading...</div>
+    );
+  }
+
   return (
-    <div className={styles.content}>
-      {description}
+    <div className={styles.container}>
+      <div className={styles.text}>{data.text}</div>
+      <img
+        src={data.image}
+        alt="공연 설명 이미지"
+        className={styles.image}
+      />
     </div>
   );
 }

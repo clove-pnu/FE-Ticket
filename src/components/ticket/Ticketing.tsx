@@ -57,7 +57,7 @@ export default function Ticketing({ seats }: TicketingProps) {
         <svg
           className={styles.background}
           style={{
-            backgroundImage: 'url("/assets/0.png")',
+            backgroundImage: 'url("")',
             transform: `scale(${zoom / 100})`,
           }}
         >

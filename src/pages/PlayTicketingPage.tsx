@@ -1,61 +1,68 @@
+import { Suspense, useEffect, useState } from 'react';
 import PlayDetailHeader from '../components/ticket/PlayDetailHeader';
 import Ticketing from '../components/ticket/Ticketing';
 import TicketBasket from '../components/ticket/TicketBasket';
 import CategoryTitle from '../components/common/CategoryTitle';
 import styles from './styles/PlayTicketingPage.module.css';
+import { TicketingPlayDetail } from '../utils/type';
+import { fetchWithHandler } from '../utils/fetchWithHandler';
+import { getEvent } from '../apis/event';
 
 export default function PlayTicketingPage() {
+  const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
+  const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const { pathname } = window.location;
+    const playName = pathname.split('/')[3];
+
+    fetchWithHandler(() => getEvent(playName), {
+      onSuccess: (response) => {
+        setPlayData(response.data);
+      },
+      onError: () => {
+        setError(true);
+      },
+    });
+  }, []);
+
+  if (error) {
+    return (
+      <main>
+        오류가 발생했습니다. 다시 시도해주세요.
+      </main>
+    );
+  }
+
   return (
     <main>
       <CategoryTitle>예매하기</CategoryTitle>
-      <PlayDetailHeader
-        type="full"
-        id={0}
-        image=""
-        description="공연 설명"
-        name="공연 제목"
-        bookingStartDate={new Date(2024, 0, 1)}
-        bookingEndDate={new Date(2024, 0, 1)}
-        eventTime={[new Date(2024, 0, 1, 3, 24), new Date(2024, 0, 2, 3, 24)]}
-        startDate={new Date(2024, 0, 1)}
-        endDate={new Date(2024, 0, 1)}
-        seatsAndPrices={[
-          {
-            id: 1,
-            section: 'A',
-            price: 100,
-            count: 50,
-          },
-          {
-            id: 2,
-            section: 'B',
-            price: 50,
-            count: 100,
-          },
-        ]}
-        cast="OOO, OOO"
-        venue="공연장"
-      />
-      <div className={styles.ticketingContainer}>
-        <Ticketing
-          seats={[{
-            x: 220,
-            y: 220,
-            eventName: '테스트 공연',
-            seatNumber: 'B50',
-            isAvailable: true,
-          },
-          {
-            x: 330,
-            y: 330,
-            eventName: '테스트 공연',
-            seatNumber: 'A40',
-            isAvailable: false,
-          },
-          ]}
+      <Suspense fallback={<div>Loading...</div>}>
+        <PlayDetailHeader
+          type="ticketing"
+          data={playData}
         />
-        <TicketBasket />
-      </div>
+        <div className={styles.ticketingContainer}>
+          <Ticketing
+            seats={[{
+              x: 220,
+              y: 220,
+              eventName: '테스트 공연',
+              seatNumber: 'B50',
+              isAvailable: true,
+            },
+            {
+              x: 330,
+              y: 330,
+              eventName: '테스트 공연',
+              seatNumber: 'A40',
+              isAvailable: false,
+            },
+            ]}
+          />
+          <TicketBasket />
+        </div>
+      </Suspense>
     </main>
   );
 }

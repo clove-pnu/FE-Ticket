@@ -15,19 +15,25 @@ export interface SeatsAndPrices {
   count: number;
 }
 
+export interface PlayDescription {
+  id: number;
+  text: string;
+  image: string;
+}
+
 export interface TicketingPlayDetail {
   id: number;
   name: string;
   image: string;
   cast: string;
-  description: string;
+  description: PlayDescription;
   venue: string;
   seatsAndPrices: SeatsAndPrices[];
-  eventTime: Date[];
-  startDate: Date;
-  endDate: Date;
-  bookingStartDate: Date;
-  bookingEndDate: Date;
+  eventTime: string[];
+  startDate: string;
+  endDate: string;
+  bookingStartDate: string;
+  bookingEndDate: string;
 }
 
 export interface SeatInfo {

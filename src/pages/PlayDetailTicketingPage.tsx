@@ -1,41 +1,44 @@
-import PlayDetailContent from '../components/ticket/PlayDetailContent';
+import { useEffect, useState } from 'react';
 import PlayDetailHeader from '../components/ticket/PlayDetailHeader';
+import { getEvent } from '../apis/event';
+import { fetchWithHandler } from '../utils/fetchWithHandler';
+import { TicketingPlayDetail } from '../utils/type';
+import PlayDetailContent from '../components/ticket/PlayDetailContent';
 
 export default function PlayDetailTicketingPage() {
+  const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
+  const [error, setError] = useState<boolean>(false);
+
+  useEffect(() => {
+    const { pathname } = window.location;
+    const playName = pathname.split('/')[3];
+
+    fetchWithHandler(() => getEvent(playName), {
+      onSuccess: (response) => {
+        setPlayData(response.data);
+      },
+      onError: () => {
+        setError(true);
+      },
+    });
+  }, []);
+
+  if (error) {
+    return (
+      <main>
+        오류가 발생했습니다. 다시 시도해주세요.
+      </main>
+    );
+  }
+
   return (
     <main>
       <PlayDetailHeader
-        type="full"
-        id={0}
-        image=""
-        description="공연 설명"
-        name="공연 제목"
-        bookingStartDate={new Date(2024, 0, 1)}
-        bookingEndDate={new Date(2024, 0, 1)}
-        eventTime={[new Date(2024, 0, 1, 3, 24), new Date(2024, 0, 2, 3, 24)]}
-        startDate={new Date(2024, 0, 1)}
-        endDate={new Date(2024, 0, 1)}
-        seatsAndPrices={
-          [
-            {
-              id: 1,
-              section: 'A',
-              price: 100,
-              count: 50,
-            },
-            {
-              id: 2,
-              section: 'B',
-              price: 50,
-              count: 100,
-            },
-          ]
-        }
-        cast="OOO, OOO"
-        venue="공연장"
+        type="detail"
+        data={playData}
       />
       <PlayDetailContent
-        description="공연 소개 및 설명"
+        data={playData?.description}
       />
     </main>
   );
