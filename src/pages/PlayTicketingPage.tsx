@@ -1,4 +1,5 @@
 import { Suspense, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import PlayDetailHeader from '../components/ticket/PlayDetailHeader';
 import Ticketing from '../components/ticket/Ticketing';
 import TicketBasket from '../components/ticket/TicketBasket';
@@ -11,11 +12,9 @@ import { getEvent } from '../apis/event';
 export default function PlayTicketingPage() {
   const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
   const [error, setError] = useState<boolean>(false);
+  const { playName } = useParams();
 
   useEffect(() => {
-    const { pathname } = window.location;
-    const playName = pathname.split('/')[3];
-
     fetchWithHandler(() => getEvent(playName), {
       onSuccess: (response) => {
         setPlayData(response.data);

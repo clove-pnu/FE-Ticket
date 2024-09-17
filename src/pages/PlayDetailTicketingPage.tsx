@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import PlayDetailHeader from '../components/ticket/PlayDetailHeader';
 import { getEvent } from '../apis/event';
 import { fetchWithHandler } from '../utils/fetchWithHandler';
@@ -8,11 +9,9 @@ import PlayDetailContent from '../components/ticket/PlayDetailContent';
 export default function PlayDetailTicketingPage() {
   const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
   const [error, setError] = useState<boolean>(false);
+  const { playName } = useParams();
 
   useEffect(() => {
-    const { pathname } = window.location;
-    const playName = pathname.split('/')[3];
-
     fetchWithHandler(() => getEvent(playName), {
       onSuccess: (response) => {
         setPlayData(response.data);
