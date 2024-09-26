@@ -2,8 +2,12 @@
   padding: 0 1rem;
 }
 
-.text {
+.description {
   margin-bottom: 2rem;
+}
+
+.text {
+  margin: 0.5rem 0;
 }
 
 .image {

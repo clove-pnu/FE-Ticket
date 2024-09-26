@@ -36,7 +36,11 @@ export default function PlayDetailHeader({ type, data }: PlayDetailHeaderProps) 
             </div>
           </div>
           <div className={styles.venueCast}>
-            <p>{data.venue}</p>
+            <p>
+              공연 장소:
+              {' '}
+              {data.venue}
+            </p>
             <p>
               출연진:
               {' '}
@@ -46,7 +50,7 @@ export default function PlayDetailHeader({ type, data }: PlayDetailHeaderProps) 
           <div>
             <div className={styles.eventTimeTitle}>회차정보</div>
             <ul>
-              {/* {data.eventTime.map((evt, index) => (
+              {data.eventTime.map((evt, index) => (
                 <li
                   key={evt.toString()}
                   className={styles.eventTime}
@@ -56,8 +60,7 @@ export default function PlayDetailHeader({ type, data }: PlayDetailHeaderProps) 
                   {' '}
                   {evt}
                 </li>
-              ))} */}
-              {data.eventTime}
+              ))}
             </ul>
           </div>
         </div>

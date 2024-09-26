@@ -5,22 +5,23 @@ import { getEvent } from '../apis/event';
 import { fetchWithHandler } from '../utils/fetchWithHandler';
 import { TicketingPlayDetail } from '../utils/type';
 import PlayDetailContent from '../components/ticket/PlayDetailContent';
+import { mockData } from '../mock/data';
 
 export default function PlayDetailTicketingPage() {
-  const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
+  const [playData, setPlayData] = useState<TicketingPlayDetail>(mockData);
   const [error, setError] = useState<boolean>(false);
-  const { playName } = useParams();
+  const { namespace, playName } = useParams();
 
-  useEffect(() => {
-    fetchWithHandler(() => getEvent(playName), {
-      onSuccess: (response) => {
-        setPlayData(response.data);
-      },
-      onError: () => {
-        setError(true);
-      },
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetchWithHandler(() => getEvent(namespace), {
+  //     onSuccess: (response) => {
+  //       setPlayData(response.data);
+  //     },
+  //     onError: () => {
+  //       setError(true);
+  //     },
+  //   });
+  // }, []);
 
   if (error) {
     return (

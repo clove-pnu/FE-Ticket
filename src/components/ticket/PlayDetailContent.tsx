@@ -14,7 +14,16 @@ export default function PlayDetailContent({ data }: PlayDetailContentProps) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.text}>{data.text}</div>
+      <div className={styles.description}>
+        {data.text.map((text) => (
+          <div
+            key={text}
+            className={styles.text}
+          >
+            {text}
+          </div>
+        ))}
+      </div>
       <img
         src={data.image}
         alt="공연 설명 이미지"
