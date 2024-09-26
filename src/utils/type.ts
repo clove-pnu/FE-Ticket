@@ -1,6 +1,9 @@
 export interface Ticket {
   eventName: string;
-  seatNumber: string;
+  section: string;
+  seatNumber: number;
+  price: number;
+  eventDate: string;
 }
 
 export interface TicketAction {
@@ -17,7 +20,7 @@ export interface SeatsAndPrices {
 
 export interface PlayDescription {
   id: number;
-  text: string;
+  text: string[];
   image: string;
 }
 
@@ -37,11 +40,11 @@ export interface TicketingPlayDetail {
 }
 
 export interface SeatInfo {
-  x: number;
-  y: number;
-  eventName: string;
-  seatNumber: string;
-  isAvailable: boolean;
+  section: string;
+  seatNumber: number;
+  price: number;
+  reservationStatus: 'YES' | 'NO';
+  eventDate: string;
 }
 
 export interface ReservedTicket {
@@ -49,4 +52,24 @@ export interface ReservedTicket {
   seatNumber: number;
   eventName: string;
   section: string;
+}
+
+export interface Seat {
+  x: number;
+  y: number;
+}
+
+export interface Section {
+  sectionName: string;
+  seats: Seat[];
+}
+
+export interface Venue {
+  name: string;
+  backgroundImage: string;
+  imageSize: {
+    width: number;
+    height: number;
+  }
+  sections: Section[];
 }

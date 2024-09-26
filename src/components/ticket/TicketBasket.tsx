@@ -9,16 +9,28 @@ export default function TicketBasket() {
     <div className={styles.container}>
       <div className={styles.title}>선택한 좌석</div>
       <ul className={styles.ticketList}>
-        {tickets && tickets.map(({ eventName, seatNumber }) => (
+        {tickets && tickets.map(({
+          eventName,
+          section,
+          seatNumber,
+          price,
+          eventDate,
+        }) => (
           <li
             key={`${eventName}-${seatNumber}`}
             className={styles.ticketInfo}
           >
             <div>
+              {eventDate}
+            </div>
+            <div>
+              {section}
+            </div>
+            <div>
               {seatNumber}
             </div>
             <div className={styles.price}>
-              110,000
+              {price}
               {' '}
               원
             </div>

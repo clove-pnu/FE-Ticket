@@ -6,7 +6,9 @@ function reducer(state: Ticket[], action: TicketAction) {
   switch (type) {
     case 'ADD':
       if (state.find((s) => s.eventName === payload.eventName
-        && s.seatNumber === payload.seatNumber) === undefined) {
+        && s.seatNumber === payload.seatNumber
+        && s.section === payload.section
+        && s.eventDate === payload.eventDate) === undefined) {
         return [...state, payload];
       }
       return state;
@@ -14,7 +16,9 @@ function reducer(state: Ticket[], action: TicketAction) {
     case 'REMOVE':
       return state.filter(
         (s) => !(s.eventName === payload.eventName
-          && s.seatNumber === payload.seatNumber),
+          && s.seatNumber === payload.seatNumber
+          && s.section === payload.section
+          && s.eventDate === payload.eventDate),
       );
 
     default:

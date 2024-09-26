@@ -8,22 +8,33 @@ import styles from './styles/PlayTicketingPage.module.css';
 import { TicketingPlayDetail } from '../utils/type';
 import { fetchWithHandler } from '../utils/fetchWithHandler';
 import { getEvent } from '../apis/event';
+import { getSeats } from '../apis/seat';
+import { mockData } from '../mock/data';
 
 export default function PlayTicketingPage() {
-  const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
+  const [playData, setPlayData] = useState<TicketingPlayDetail>(mockData);
   const [error, setError] = useState<boolean>(false);
-  const { playName } = useParams();
+  const { namespace, playName } = useParams();
 
-  useEffect(() => {
-    fetchWithHandler(() => getEvent(playName), {
-      onSuccess: (response) => {
-        setPlayData(response.data);
-      },
-      onError: () => {
-        setError(true);
-      },
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetchWithHandler(() => getEvent(namespace), {
+  //     onSuccess: (response) => {
+  //       setPlayData(response.data);
+  //     },
+  //     onError: () => {
+  //       setError(true);
+  //     },
+  //   });
+
+  //   fetchWithHandler(() => getSeats(playName), {
+  //     onSuccess: (response) => {
+  //       console.log(response);
+  //     },
+  //     onError: () => {
+
+  //     },
+  //   });
+  // }, []);
 
   if (error) {
     return (
@@ -43,19 +54,28 @@ export default function PlayTicketingPage() {
         />
         <div className={styles.ticketingContainer}>
           <Ticketing
+            eventName={playName}
+            venue={playData.venue}
             seats={[{
-              x: 220,
-              y: 220,
-              eventName: '테스트 공연',
-              seatNumber: 'B50',
-              isAvailable: true,
+              section: 'R',
+              seatNumber: 1,
+              price: 15000,
+              reservationStatus: 'NO',
+              eventDate: '2024-01-03',
             },
             {
-              x: 330,
-              y: 330,
-              eventName: '테스트 공연',
-              seatNumber: 'A40',
-              isAvailable: false,
+              section: 'R',
+              seatNumber: 2,
+              price: 15000,
+              reservationStatus: 'NO',
+              eventDate: '2024-01-03',
+            },
+            {
+              section: 'S',
+              seatNumber: 3,
+              price: 15000,
+              reservationStatus: 'NO',
+              eventDate: '2024-01-03',
             },
             ]}
           />

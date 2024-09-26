@@ -1,14 +1,24 @@
 import { useState } from 'react';
 import { SeatInfo } from '../../utils/type';
 import useTicketDispatch from '../../hooks/useTicketDispatch';
+import styles from '../styles/Seat.module.css';
+
+interface SeatProps extends SeatInfo {
+  x: number;
+  y: number;
+  eventName: string;
+}
 
 export default function Seat({
   x,
   y,
   eventName,
+  section,
   seatNumber,
-  isAvailable,
-}: SeatInfo) {
+  price,
+  reservationStatus,
+  eventDate,
+}: SeatProps) {
   const [isSelected, setIsSelected] = useState(false);
   const ticketDispatch = useTicketDispatch();
 
@@ -17,7 +27,10 @@ export default function Seat({
       type: 'ADD',
       payload: {
         eventName,
+        section,
         seatNumber,
+        eventDate,
+        price,
       },
     });
     setIsSelected(true);
@@ -28,15 +41,19 @@ export default function Seat({
       type: 'REMOVE',
       payload: {
         eventName,
+        section,
         seatNumber,
+        eventDate,
+        price,
       },
     });
     setIsSelected(false);
   };
 
-  if (!isAvailable) {
+  if (reservationStatus === 'YES') {
     return (
       <circle
+        className={styles.circle}
         cx={x}
         cy={y}
         r={8}
@@ -49,6 +66,7 @@ export default function Seat({
   if (!isSelected) {
     return (
       <circle
+        className={styles.circle}
         cx={x}
         cy={y}
         r={8}
@@ -62,6 +80,7 @@ export default function Seat({
 
   return (
     <circle
+      className={styles.circle}
       cx={x}
       cy={y}
       r={8}
