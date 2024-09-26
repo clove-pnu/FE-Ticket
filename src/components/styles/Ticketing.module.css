@@ -28,7 +28,7 @@
 /* Desktop */
 @media (width >= 1024px) {
   .container {
-    position: relati
+    position: relative;
     width: 640px;
     height: 640px;
     overflow: hidden;
