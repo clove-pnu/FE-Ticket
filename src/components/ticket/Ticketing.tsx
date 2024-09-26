@@ -33,7 +33,9 @@ export default function Ticketing({ eventName, venue, seats }: TicketingProps) {
         doubleClick={{
           disabled: true,
         }}
+        minScale={0.5}
         maxScale={4}
+        limitToBounds={false}
       >
         {({
           zoomIn, zoomOut, resetTransform, ...rest
@@ -44,7 +46,10 @@ export default function Ticketing({ eventName, venue, seats }: TicketingProps) {
               <img
                 src={`${currentVenue.backgroundImage}`}
                 alt="공연장 이미지"
-                className={styles.image}
+                style={{
+                  width: currentVenue.imageSize.width,
+                  height: currentVenue.imageSize.height,
+                }}
               />
               <svg className={styles.seat}>
                 {seats.map(({

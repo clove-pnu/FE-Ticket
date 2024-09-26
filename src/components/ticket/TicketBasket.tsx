@@ -1,4 +1,5 @@
 import useTicket from '../../hooks/useTicket';
+import { numberToMoney } from '../../utils/convert';
 import Button from '../common/Button';
 import styles from '../styles/TicketBasket.module.css';
 
@@ -8,6 +9,20 @@ export default function TicketBasket() {
   return (
     <div className={styles.container}>
       <div className={styles.title}>선택한 좌석</div>
+      <div className={styles.header}>
+        <div className={styles.eventDate}>
+          공연 일자
+        </div>
+        <div className={styles.section}>
+          구역
+        </div>
+        <div className={styles.seatNumber}>
+          좌석 번호
+        </div>
+        <div className={styles.price}>
+          가격
+        </div>
+      </div>
       <ul className={styles.ticketList}>
         {tickets && tickets.map(({
           eventName,
@@ -17,20 +32,20 @@ export default function TicketBasket() {
           eventDate,
         }) => (
           <li
-            key={`${eventName}-${seatNumber}`}
+            key={`${eventDate}-${section}-${seatNumber}`}
             className={styles.ticketInfo}
           >
-            <div>
+            <div className={styles.eventDate}>
               {eventDate}
             </div>
-            <div>
+            <div className={styles.section}>
               {section}
             </div>
-            <div>
+            <div className={styles.seatNumber}>
               {seatNumber}
             </div>
-            <div className={styles.price}>
-              {price}
+            <div className={styles.ticketPrice}>
+              {numberToMoney(price)}
               {' '}
               원
             </div>
@@ -47,7 +62,7 @@ export default function TicketBasket() {
             개
           </div>
           <div>
-            110,000
+            {numberToMoney(tickets.reduce((acc, cur) => acc + cur.price, 0))}
             {' '}
             원
           </div>

@@ -9,7 +9,7 @@ import { TicketingPlayDetail } from '../utils/type';
 import { fetchWithHandler } from '../utils/fetchWithHandler';
 import { getEvent } from '../apis/event';
 import { getSeats } from '../apis/seat';
-import { mockData } from '../mock/data';
+import { mockData, mockSeatData } from '../mock/data';
 
 export default function PlayTicketingPage() {
   const [playData, setPlayData] = useState<TicketingPlayDetail>(mockData);
@@ -47,41 +47,18 @@ export default function PlayTicketingPage() {
   return (
     <main>
       <CategoryTitle>예매하기</CategoryTitle>
-      <Suspense fallback={<div>Loading...</div>}>
-        <PlayDetailHeader
-          type="ticketing"
-          data={playData}
+      <PlayDetailHeader
+        type="ticketing"
+        data={playData}
+      />
+      <div className={styles.ticketingContainer}>
+        <Ticketing
+          eventName={playName}
+          venue={playData.venue}
+          seats={mockSeatData[1]}
         />
-        <div className={styles.ticketingContainer}>
-          <Ticketing
-            eventName={playName}
-            venue={playData.venue}
-            seats={[{
-              section: 'R',
-              seatNumber: 1,
-              price: 15000,
-              reservationStatus: 'NO',
-              eventDate: '2024-01-03',
-            },
-            {
-              section: 'R',
-              seatNumber: 2,
-              price: 15000,
-              reservationStatus: 'NO',
-              eventDate: '2024-01-03',
-            },
-            {
-              section: 'S',
-              seatNumber: 3,
-              price: 15000,
-              reservationStatus: 'NO',
-              eventDate: '2024-01-03',
-            },
-            ]}
-          />
-          <TicketBasket />
-        </div>
-      </Suspense>
+        <TicketBasket />
+      </div>
     </main>
   );
 }

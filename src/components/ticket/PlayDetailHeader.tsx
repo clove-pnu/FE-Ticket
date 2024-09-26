@@ -1,3 +1,4 @@
+import { numberToMoney } from '../../utils/convert';
 import { TicketingPlayDetail } from '../../utils/type';
 import LinkButton from '../common/LinkButton';
 import styles from '../styles/PlayDetailHeader.module.css';
@@ -77,7 +78,7 @@ export default function PlayDetailHeader({ type, data }: PlayDetailHeaderProps) 
                   {' '}
                   구역:
                   {' '}
-                  {price}
+                  {numberToMoney(price)}
                   {' '}
                   원
                 </li>
