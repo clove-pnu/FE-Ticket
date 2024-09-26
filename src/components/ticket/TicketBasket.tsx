@@ -59,7 +59,7 @@ export default function TicketBasket() {
             {' '}
             {tickets.length}
             {' '}
-            개
+            매
           </div>
           <div>
             {numberToMoney(tickets.reduce((acc, cur) => acc + cur.price, 0))}

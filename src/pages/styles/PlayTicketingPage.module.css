@@ -1,4 +1,14 @@
-.ticketingContainer {
-  display: flex;
-  flex-direction: row;
+/* All */
+
+/* Mobile */
+@media (width < 1024px) {
+  
+}
+
+/* Desktop */
+@media (width >= 1024px) {
+  .ticketingContainer {
+    display: flex;
+    flex-direction: row;
+  } 
 }
