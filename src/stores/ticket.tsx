@@ -8,7 +8,7 @@ function reducer(state: Ticket[], action: TicketAction) {
       if (state.find((s) => s.eventName === payload.eventName
         && s.seatNumber === payload.seatNumber
         && s.section === payload.section
-        && s.eventDate === payload.eventDate) === undefined) {
+        && s.eventTime === payload.eventTime) === undefined) {
         return [...state, payload];
       }
       return state;
@@ -18,7 +18,7 @@ function reducer(state: Ticket[], action: TicketAction) {
         (s) => !(s.eventName === payload.eventName
           && s.seatNumber === payload.seatNumber
           && s.section === payload.section
-          && s.eventDate === payload.eventDate),
+          && s.eventTime === payload.eventTime),
       );
 
     default:

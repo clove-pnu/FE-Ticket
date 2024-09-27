@@ -1,10 +1,27 @@
+import { buySeats } from '../../apis/seat';
 import useTicket from '../../hooks/useTicket';
 import { numberToMoney } from '../../utils/convert';
+import { fetchWithHandler } from '../../utils/fetchWithHandler';
 import Button from '../common/Button';
 import styles from '../styles/TicketBasket.module.css';
 
-export default function TicketBasket() {
+export default function TicketBasket({ namespace }: { namespace: string }) {
   const tickets = useTicket();
+
+  const handleBuyTickets = () => {
+    fetchWithHandler(() => buySeats({
+      namespace,
+      ticket: tickets[0],
+    }), {
+      onSuccess: (response) => {
+        alert('구매가 완료되었습니다.');
+        window.location.href = './play';
+      },
+      onError: () => {
+        alert('구매에 실패하였습니다.');
+      },
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -29,14 +46,14 @@ export default function TicketBasket() {
           section,
           seatNumber,
           price,
-          eventDate,
+          eventTime,
         }) => (
           <li
-            key={`${eventDate}-${section}-${seatNumber}`}
+            key={`${eventTime}-${section}-${seatNumber}`}
             className={styles.ticketInfo}
           >
             <div className={styles.eventDate}>
-              {eventDate}
+              {eventTime}
             </div>
             <div className={styles.section}>
               {section}
@@ -69,7 +86,7 @@ export default function TicketBasket() {
         </div>
       )}
       <div className={styles.book}>
-        <Button>예매하기</Button>
+        <Button onClick={handleBuyTickets}>예매하기</Button>
       </div>
     </div>
   );

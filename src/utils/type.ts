@@ -3,7 +3,7 @@ export interface Ticket {
   section: string;
   seatNumber: number;
   price: number;
-  eventDate: string;
+  eventTime: string;
 }
 
 export interface TicketAction {
@@ -40,11 +40,13 @@ export interface TicketingPlayDetail {
 }
 
 export interface SeatInfo {
+  id: string;
+  eventName: string;
   section: string;
   seatNumber: number;
   price: number;
   reservationStatus: 'YES' | 'NO';
-  eventDate: string;
+  eventTime: string;
 }
 
 export interface ReservedTicket {

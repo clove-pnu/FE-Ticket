@@ -15,9 +15,9 @@ export default function PlayDetailContent({ data }: PlayDetailContentProps) {
   return (
     <div className={styles.container}>
       <div className={styles.description}>
-        {data.text.map((text) => (
+        {data.text.map((text, index) => (
           <div
-            key={text}
+            key={`${text}-${index}`}
             className={styles.text}
           >
             {text}

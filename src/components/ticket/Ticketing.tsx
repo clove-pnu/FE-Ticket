@@ -1,15 +1,19 @@
 import {
   MiniMap, TransformComponent, TransformWrapper, useControls,
 } from 'react-zoom-pan-pinch';
+import { useEffect, useState } from 'react';
 import Seat from './Seat';
 import { SeatInfo } from '../../utils/type';
 import styles from '../styles/Ticketing.module.css';
 import { venueData } from '../../data/venue';
+import { fetchWithHandler } from '../../utils/fetchWithHandler';
+import { getSeats } from '../../apis/seat';
 
 interface TicketingProps {
+  namespace: string;
   eventName: string;
   venue: string;
-  seats: SeatInfo[];
+  eventTimeList: string[];
 }
 
 function Controller() {
@@ -24,11 +28,46 @@ function Controller() {
   );
 }
 
-export default function Ticketing({ eventName, venue, seats }: TicketingProps) {
+export default function Ticketing({
+  namespace,
+  eventName,
+  venue,
+  eventTimeList,
+}: TicketingProps) {
+  const [seats, setSeats] = useState<SeatInfo[]>([]);
   const currentVenue = venueData.find((v) => v.name === venue);
+  const [selectedEventTime, setSelectedEventTime] = useState<string>('');
+
+  useEffect(() => {
+    fetchWithHandler(() => getSeats(namespace), {
+      onSuccess: (response) => {
+        setSeats(response.data.filter((d) => d.eventName === eventName));
+      },
+      onError: () => {},
+    });
+  }, [eventName, namespace]);
 
   return (
     <div className={styles.container}>
+      <select
+        onChange={(e) => setSelectedEventTime(e.target.value)}
+        value={selectedEventTime}
+      >
+        <option
+          key="eventtimenotselected"
+          value=""
+        >
+          회차를 선택하세요
+        </option>
+        {eventTimeList.map((et) => (
+          <option
+            key={et}
+            value={et}
+          >
+            {et}
+          </option>
+        ))}
+      </select>
       <TransformWrapper
         doubleClick={{
           disabled: true,
@@ -52,12 +91,13 @@ export default function Ticketing({ eventName, venue, seats }: TicketingProps) {
                 }}
               />
               <svg className={styles.seat}>
-                {seats.map(({
+                {seats.filter((s) => s.eventTime === selectedEventTime).map(({
+                  id,
                   section,
                   seatNumber,
                   price,
                   reservationStatus,
-                  eventDate,
+                  eventTime,
                 }) => {
                   const { x, y } = currentVenue
                     .sections
@@ -66,7 +106,8 @@ export default function Ticketing({ eventName, venue, seats }: TicketingProps) {
 
                   return (
                     <Seat
-                      key={`${eventDate}-${section}-${seatNumber}`}
+                      key={`${id}-${eventTime}-${section}-${seatNumber}`}
+                      id={id}
                       eventName={eventName}
                       x={x}
                       y={y}
@@ -74,7 +115,7 @@ export default function Ticketing({ eventName, venue, seats }: TicketingProps) {
                       seatNumber={seatNumber}
                       price={price}
                       reservationStatus={reservationStatus}
-                      eventDate={eventDate}
+                      eventTime={eventTime}
                     />
                   );
                 })}

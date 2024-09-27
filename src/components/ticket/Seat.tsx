@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SeatInfo } from '../../utils/type';
 import useTicketDispatch from '../../hooks/useTicketDispatch';
 import styles from '../styles/Seat.module.css';
+import useTicket from '../../hooks/useTicket';
 
 interface SeatProps extends SeatInfo {
   x: number;
@@ -17,10 +18,20 @@ export default function Seat({
   seatNumber,
   price,
   reservationStatus,
-  eventDate,
+  eventTime,
 }: SeatProps) {
   const [isSelected, setIsSelected] = useState(false);
+  const tickets = useTicket();
   const ticketDispatch = useTicketDispatch();
+
+  useEffect(() => {
+    if (tickets.find((t) => t.eventTime === eventTime
+      && t.eventName === eventName
+      && t.section === section
+      && t.seatNumber === seatNumber)) {
+      setIsSelected(true);
+    }
+  }, []);
 
   const handleSelect = () => {
     ticketDispatch({
@@ -29,7 +40,7 @@ export default function Seat({
         eventName,
         section,
         seatNumber,
-        eventDate,
+        eventTime,
         price,
       },
     });
@@ -43,7 +54,7 @@ export default function Seat({
         eventName,
         section,
         seatNumber,
-        eventDate,
+        eventTime,
         price,
       },
     });

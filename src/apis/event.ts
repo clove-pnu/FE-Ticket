@@ -1,5 +1,10 @@
-import { eventInstance } from './instance';
+import axios from 'axios';
+import { getAccessToken } from '../utils/token';
 
-export function getEvent(name: string) {
-  return eventInstance.get(`/${name}`);
+export function getEvent(namespace: string) {
+  return axios.get(`/${namespace}/event`, {
+    headers: {
+      Authorization: getAccessToken(),
+    },
+  });
 }

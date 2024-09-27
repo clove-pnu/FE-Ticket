@@ -1,14 +1,20 @@
 import { numberToMoney } from '../../utils/convert';
 import { TicketingPlayDetail } from '../../utils/type';
+import Button from '../common/Button';
 import LinkButton from '../common/LinkButton';
 import styles from '../styles/PlayDetailHeader.module.css';
 
 interface PlayDetailHeaderProps {
   type: 'detail' | 'ticketing';
   data: TicketingPlayDetail;
+  setIsTicketing: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function PlayDetailHeader({ type, data }: PlayDetailHeaderProps) {
+export default function PlayDetailHeader({
+  type,
+  data,
+  setIsTicketing,
+}: PlayDetailHeaderProps) {
   if (!data) {
     return (
       <div>Loading...</div>
@@ -102,7 +108,7 @@ export default function PlayDetailHeader({ type, data }: PlayDetailHeaderProps) 
           {type === 'detail'
             && (
             <div className={styles.book}>
-              <LinkButton to="./ticketing">예매하기</LinkButton>
+              <Button onClick={() => setIsTicketing(true)}>예매하기</Button>
             </div>
             )}
         </div>

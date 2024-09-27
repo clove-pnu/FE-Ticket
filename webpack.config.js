@@ -55,10 +55,9 @@ module.exports = {
       // remotes: {
       //   auth: 'auth@http://localhost:3001/remoteEntry.js',
       //   // When Build
-      //   // auth: 'auth@http://34.47.117.26/page/auth/remoteEntry.js',
+      //   // auth: 'auth@http://cse.ticketclove.com/page/auth/remoteEntry.js',
       // },
       exposes: {
-        './PlayDetailTicketingPage': './src/pages/PlayDetailTicketingPage',
         './PlayTicketingPage': './src/pages/PlayTicketingPage',
         './TicketProvider': './src/stores/ticket',
       },
@@ -69,6 +68,9 @@ module.exports = {
     static: [
       {
         directory: path.join(__dirname, 'dist'),
+      },
+      {
+        directory: path.join(__dirname, 'public'),
       },
     ],
     compress: false,
