@@ -64,7 +64,7 @@ export default function Seat({
   if (reservationStatus === 'YES') {
     return (
       <circle
-        className={styles.circle}
+        className={styles.circleDisabled}
         cx={x}
         cy={y}
         r={8}

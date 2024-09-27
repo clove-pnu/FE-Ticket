@@ -83,7 +83,7 @@ export default function Ticketing({
             <Controller />
             <TransformComponent>
               <img
-                src={`${currentVenue.backgroundImage}`}
+                src={currentVenue.backgroundImage}
                 alt="공연장 이미지"
                 style={{
                   width: currentVenue.imageSize.width,
