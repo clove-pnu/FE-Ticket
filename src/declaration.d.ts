@@ -1,4 +1,4 @@
-declare module 'remoteApp/Button' {
-  const Button: React.ComponentType;
-  export default Button;
+declare module '*.module.css' {
+  const classes: { [key: string]: string };
+  export default classes;
 }
