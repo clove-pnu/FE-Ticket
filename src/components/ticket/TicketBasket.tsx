@@ -11,11 +11,24 @@ export default function TicketBasket({ namespace }: { namespace: string }) {
   const handleBuyTickets = () => {
     fetchWithHandler(() => buySeats({
       namespace,
-      ticket: tickets[0],
+      tickets,
     }), {
-      onSuccess: (response) => {
-        alert('구매가 완료되었습니다.');
-        window.location.href = './play';
+      onSuccess: async (response) => {
+        console.log(response);
+        localStorage.setItem('temp', JSON.stringify(tickets));
+
+        if (response.data?.kakaoReadyResponse) {
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+          if (isMobile) {
+            window.location.href = response.data.kakaoReadyResponse.next_redirect_mobile_url;
+          } else {
+            window.location.href = response.data.kakaoReadyResponse.next_redirect_pc_url;
+          }
+        } else {
+          alert('구매가 완료되었습니다.');
+          window.location.href = process.env.NODE_ENV === 'production' ? './play/result' : './result';
+        }
       },
       onError: () => {
         alert('구매에 실패하였습니다.');
@@ -42,7 +55,6 @@ export default function TicketBasket({ namespace }: { namespace: string }) {
       </div>
       <ul className={styles.ticketList}>
         {tickets && tickets.map(({
-          eventName,
           section,
           seatNumber,
           price,

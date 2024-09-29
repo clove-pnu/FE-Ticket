@@ -1,4 +1,5 @@
 import { PlayDescription } from '../../utils/type';
+import Loading from '../common/Loading';
 import styles from '../styles/PlayDetailContent.module.css';
 
 interface PlayDetailContentProps {
@@ -8,7 +9,7 @@ interface PlayDetailContentProps {
 export default function PlayDetailContent({ data }: PlayDetailContentProps) {
   if (!data) {
     return (
-      <div>Loading...</div>
+      <Loading />
     );
   }
 

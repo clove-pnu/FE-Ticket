@@ -3,11 +3,12 @@ import { useParams } from 'react-router-dom';
 import PlayDetailHeader from '../components/ticket/PlayDetailHeader';
 import { getEvent } from '../apis/event';
 import { fetchWithHandler } from '../utils/fetchWithHandler';
-import { TicketingPlayDetail } from '../utils/type';
+import { Ticket, TicketingPlayDetail } from '../utils/type';
 import PlayDetailContent from '../components/ticket/PlayDetailContent';
 import styles from './styles/PlayTicketingPage.module.css';
 import Ticketing from '../components/ticket/Ticketing';
 import TicketBasket from '../components/ticket/TicketBasket';
+import TicketingResult from '../components/ticket/TicketingResult';
 
 export default function PlayTicketingPage() {
   const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
@@ -15,16 +16,29 @@ export default function PlayTicketingPage() {
   const [isTicketing, setIsTicketing] = useState(false);
   const { namespace } = useParams();
 
+  const [result, setResult] = useState<Ticket[]>(null);
+
   useEffect(() => {
-    fetchWithHandler(() => getEvent(namespace), {
-      onSuccess: (response) => {
-        setPlayData(response.data[0]);
-      },
-      onError: () => {
-        setError(true);
-      },
-    });
-  }, []);
+    const resultStr = localStorage.getItem('temp');
+    localStorage.removeItem('temp');
+
+    if (resultStr !== null) {
+      setResult(JSON.parse(resultStr));
+    } else {
+      fetchWithHandler(() => getEvent(namespace), {
+        onSuccess: (response) => {
+          setPlayData(response.data[0]);
+        },
+        onError: () => {
+          setError(true);
+        },
+      });
+    }
+  }, [namespace]);
+
+  if (result !== null) {
+    return <TicketingResult result={result} />;
+  }
 
   if (error) {
     return (

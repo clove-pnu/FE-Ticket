@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getAccessToken } from '../utils/token';
+import { Ticket } from '../utils/type';
 
 export function getSeats(namespace: string) {
   return axios.get(`/${namespace}/seat`, {
@@ -11,18 +12,14 @@ export function getSeats(namespace: string) {
 
 export function buySeats({
   namespace,
-  ticket,
+  tickets,
 }: {
   namespace: string;
-  ticket: {
-    eventName: string;
-    section: string;
-    seatNumber: number;
-    price: number;
-    eventTime: string;
-  }
+  tickets: Ticket[];
 }) {
-  return axios.post(`/${namespace}/seat/buy`, ticket, {
+  return axios.post(`/${namespace}/seat/buy`, {
+    seats: tickets,
+  }, {
     headers: {
       Authorization: getAccessToken(),
     },

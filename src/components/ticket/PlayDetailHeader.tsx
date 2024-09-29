@@ -1,7 +1,7 @@
 import { numberToMoney } from '../../utils/convert';
 import { TicketingPlayDetail } from '../../utils/type';
 import Button from '../common/Button';
-import LinkButton from '../common/LinkButton';
+import Loading from '../common/Loading';
 import styles from '../styles/PlayDetailHeader.module.css';
 
 interface PlayDetailHeaderProps {
@@ -17,7 +17,7 @@ export default function PlayDetailHeader({
 }: PlayDetailHeaderProps) {
   if (!data) {
     return (
-      <div>Loading...</div>
+      <Loading />
     );
   }
 
@@ -108,7 +108,21 @@ export default function PlayDetailHeader({
           {type === 'detail'
             && (
             <div className={styles.book}>
-              <Button onClick={() => setIsTicketing(true)}>예매하기</Button>
+              <Button onClick={() => {
+                if (localStorage.getItem('userType') === 'PROVIDER') {
+                  alert('예매자 전용 기능입니다.');
+                } else if (localStorage.getItem('userType') === 'CLIENT') {
+                  setIsTicketing(true);
+                } else {
+                  alert('로그인이 필요합니다.');
+                  window.location.href = process.env.NODE_ENV === 'production'
+                    ? 'http://cse.ticketclove.com/page/main/login'
+                    : 'http://localhost:3000/page/main/login';
+                }
+              }}
+              >
+                예매하기
+              </Button>
             </div>
             )}
         </div>
