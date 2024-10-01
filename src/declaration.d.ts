@@ -5,3 +5,4 @@ declare module '*.module.css' {
 
 // Auth
 declare module 'auth/AuthProvider';
+declare module 'auth/UserStatusBar';

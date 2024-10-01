@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 import styles from '../styles/LinkButton.module.css';
 
 interface LinkButtonProps {
@@ -9,10 +8,10 @@ interface LinkButtonProps {
 
 export default function LinkButton({ to, children }: LinkButtonProps) {
   return (
-    <Link to={to}>
+    <a href={to}>
       <div className={styles.button}>
         {children}
       </div>
-    </Link>
+    </a>
   );
 }

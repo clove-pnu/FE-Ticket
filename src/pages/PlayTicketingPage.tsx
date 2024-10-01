@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import PlayDetailHeader from '../components/ticket/PlayDetailHeader';
 import { getEvent } from '../apis/event';
 import { fetchWithHandler } from '../utils/fetchWithHandler';
@@ -14,9 +13,9 @@ export default function PlayTicketingPage() {
   const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
   const [error, setError] = useState<boolean>(false);
   const [isTicketing, setIsTicketing] = useState(false);
-  const { namespace } = useParams();
-
   const [result, setResult] = useState<Ticket[]>(null);
+
+  const namespace = window.location.pathname.split('/')[1];
 
   useEffect(() => {
     const resultStr = localStorage.getItem('temp');

@@ -12,7 +12,7 @@ module.exports = (_, argv) => {
     output: {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'dist'),
-      publicPath: 'auto',
+      publicPath: isProduction ? 'play/' : '/',
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.css'],
@@ -59,11 +59,7 @@ module.exports = (_, argv) => {
         remotes: {
           auth: `auth@${isProduction ? `${serverURL}/page/auth` : 'http://localhost:3001'}/remoteEntry.js`,
         },
-        exposes: {
-          './PlayTicketingPage': './src/pages/PlayTicketingPage',
-          './TicketProvider': './src/stores/ticket',
-        },
-        shared: ['react', 'react-dom', 'react-router-dom', 'axios'],
+        shared: ['react', 'react-dom', 'axios'],
       }),
     ],
     devServer: {
@@ -78,6 +74,12 @@ module.exports = (_, argv) => {
       compress: false,
       port: 3004,
       historyApiFallback: true,
+      proxy: [
+        {
+          context: ['/auth', '/et/event', '/et/seat', '/rose/seat', '/rose/event'],
+          target: serverURL,
+        },
+      ],
     },
   };
 };
