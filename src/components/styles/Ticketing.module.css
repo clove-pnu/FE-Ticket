@@ -20,8 +20,10 @@
 /* Mobile */
 @media (width < 1024px) {
   .container {
+    padding: 0 1rem;
     position: relative;
     overflow: hidden;
+    aspect-ratio: 1/1;
   }
 }
 
