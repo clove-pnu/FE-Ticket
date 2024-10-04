@@ -38,6 +38,15 @@
   font-weight: 700;
 }
 
+.button {
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
 /* Mobile */
 @media (width < 1024px) {
   .container {
@@ -54,8 +63,12 @@
     width: 15%;
   }
 
-  .seatNumber {
+  .count {
     width: 15%;
+  }
+
+  .countValue {
+    width: 10%;
   }
 
   .price {
@@ -80,15 +93,20 @@
   }
 
   .eventDate {
-    width: 100px;
+    width: 160px;
   }
 
   .section {
     width: 40px;
+    margin-right: 24px;
   }
 
-  .seatNumber {
-    width: 50px;
+  .count {
+    width: 72px;
+  }
+
+  .countValue {
+    width: 40px;
   }
 
   .price {

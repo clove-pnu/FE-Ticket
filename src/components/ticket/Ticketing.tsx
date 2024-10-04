@@ -1,19 +1,11 @@
 import {
   MiniMap, TransformComponent, TransformWrapper, useControls,
 } from 'react-zoom-pan-pinch';
-import { useEffect, useState } from 'react';
-import Seat from './Seat';
-import { SeatInfo } from '../../utils/type';
 import styles from '../styles/Ticketing.module.css';
 import { venueData } from '../../data/venue';
-import { fetchWithHandler } from '../../utils/fetchWithHandler';
-import { getSeats } from '../../apis/seat';
 
 interface TicketingProps {
-  namespace: string;
-  eventName: string;
   venue: string;
-  eventTimeList: string[];
 }
 
 function Controller() {
@@ -29,45 +21,24 @@ function Controller() {
 }
 
 export default function Ticketing({
-  namespace,
-  eventName,
+  // namespace,
+  // eventName,
   venue,
-  eventTimeList,
 }: TicketingProps) {
-  const [seats, setSeats] = useState<SeatInfo[]>([]);
+  // const [seats, setSeats] = useState<SeatInfo[]>([]);
   const currentVenue = venueData.find((v) => v.name === venue);
-  const [selectedEventTime, setSelectedEventTime] = useState<string>('');
 
-  useEffect(() => {
-    fetchWithHandler(() => getSeats(namespace), {
-      onSuccess: (response) => {
-        setSeats(response.data.filter((d) => d.eventName === eventName));
-      },
-      onError: () => {},
-    });
-  }, [eventName, namespace]);
+  // useEffect(() => {
+  //   fetchWithHandler(() => getSeats(namespace), {
+  //     onSuccess: (response) => {
+  //       setSeats(response.data.filter((d) => d.eventName === eventName));
+  //     },
+  //     onError: () => {},
+  //   });
+  // }, [eventName, namespace]);
 
   return (
     <div className={styles.container}>
-      <select
-        onChange={(e) => setSelectedEventTime(e.target.value)}
-        value={selectedEventTime}
-      >
-        <option
-          key="eventtimenotselected"
-          value=""
-        >
-          회차를 선택하세요
-        </option>
-        {eventTimeList.map((et) => (
-          <option
-            key={et}
-            value={et}
-          >
-            {et}
-          </option>
-        ))}
-      </select>
       <TransformWrapper
         doubleClick={{
           disabled: true,
@@ -90,36 +61,6 @@ export default function Ticketing({
                   height: currentVenue.imageSize.height,
                 }}
               />
-              <svg className={styles.seat}>
-                {seats.filter((s) => s.eventTime === selectedEventTime).map(({
-                  id,
-                  section,
-                  seatNumber,
-                  price,
-                  reservationStatus,
-                  eventTime,
-                }) => {
-                  const { x, y } = currentVenue
-                    .sections
-                    .find((s) => s.sectionName === section)
-                    .seats[seatNumber - 1];
-
-                  return (
-                    <Seat
-                      key={`${id}-${eventTime}-${section}-${seatNumber}`}
-                      id={id}
-                      eventName={eventName}
-                      x={x}
-                      y={y}
-                      section={section}
-                      seatNumber={seatNumber}
-                      price={price}
-                      reservationStatus={reservationStatus}
-                      eventTime={eventTime}
-                    />
-                  );
-                })}
-              </svg>
             </TransformComponent>
           </>
         )}

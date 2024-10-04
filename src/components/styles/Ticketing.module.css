@@ -31,8 +31,8 @@
 @media (width >= 1024px) {
   .container {
     position: relative;
-    width: 640px;
-    height: 640px;
+    width: 540px;
+    height: 540px;
     overflow: hidden;
   }
 }

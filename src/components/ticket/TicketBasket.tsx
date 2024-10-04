@@ -1,37 +1,69 @@
 import { buySeats } from '../../apis/seat';
-import useTicket from '../../hooks/useTicket';
 import { numberToMoney } from '../../utils/convert';
 import { fetchWithHandler } from '../../utils/fetchWithHandler';
 import Button from '../common/Button';
 import styles from '../styles/TicketBasket.module.css';
+import useTicket from '../../hooks/useTicket';
+import useTicketDispatch from '../../hooks/useTicketDispatch';
 
-export default function TicketBasket({ namespace }: { namespace: string }) {
+interface TicketBasketProps {
+  namespace: string;
+  eventTimeList: string[];
+  sectionPrices: Map<string, number>;
+}
+
+export default function TicketBasket({
+  namespace,
+  eventTimeList,
+  sectionPrices,
+}: TicketBasketProps) {
   const tickets = useTicket();
+  const ticketDispatch = useTicketDispatch();
 
   const handleBuyTickets = () => {
-    fetchWithHandler(() => buySeats({
-      namespace,
-      tickets,
-    }), {
-      onSuccess: async (response) => {
-        console.log(response);
-        localStorage.setItem('temp', JSON.stringify(tickets));
+    // fetchWithHandler(() => buySeats({
+    //   namespace,
+    //   tickets,
+    // }), {
+    //   onSuccess: async (response) => {
+    //     console.log(response);
+    //     localStorage.setItem('temp', JSON.stringify(tickets));
 
-        if (response.data?.kakaoReadyResponse) {
-          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    //     if (response.data?.kakaoReadyResponse) {
+    //       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-          if (isMobile) {
-            window.location.href = response.data.kakaoReadyResponse.next_redirect_mobile_url;
-          } else {
-            window.location.href = response.data.kakaoReadyResponse.next_redirect_pc_url;
-          }
-        } else {
-          alert('구매가 완료되었습니다.');
-          window.location.href = process.env.NODE_ENV === 'production' ? './play/result' : './result';
-        }
+    //       if (isMobile) {
+    //         window.location.href = response.data.kakaoReadyResponse.next_redirect_mobile_url;
+    //       } else {
+    //         window.location.href = response.data.kakaoReadyResponse.next_redirect_pc_url;
+    //       }
+    //     } else {
+    //       alert('구매가 완료되었습니다.');
+    //       window.location.href = process.env.NODE_ENV === 'production' ? './play/result' : './result';
+    //     }
+    //   },
+    //   onError: () => {
+    //     alert('구매에 실패하였습니다.');
+    //   },
+    // });
+  };
+
+  const handleAddTicket = (eventTime, section) => {
+    ticketDispatch({
+      type: 'ADD',
+      payload: {
+        eventTime,
+        section,
       },
-      onError: () => {
-        alert('구매에 실패하였습니다.');
+    });
+  };
+
+  const handleRemoveTicket = (eventTime, section) => {
+    ticketDispatch({
+      type: 'REMOVE',
+      payload: {
+        eventTime,
+        section,
       },
     });
   };
@@ -46,52 +78,74 @@ export default function TicketBasket({ namespace }: { namespace: string }) {
         <div className={styles.section}>
           구역
         </div>
-        <div className={styles.seatNumber}>
-          좌석 번호
+        <div className={styles.count}>
+          수량
         </div>
         <div className={styles.price}>
           가격
         </div>
       </div>
       <ul className={styles.ticketList}>
-        {tickets && tickets.map(({
-          section,
-          seatNumber,
-          price,
-          eventTime,
-        }) => (
-          <li
-            key={`${eventTime}-${section}-${seatNumber}`}
-            className={styles.ticketInfo}
-          >
-            <div className={styles.eventDate}>
-              {eventTime}
-            </div>
-            <div className={styles.section}>
-              {section}
-            </div>
-            <div className={styles.seatNumber}>
-              {seatNumber}
-            </div>
-            <div className={styles.ticketPrice}>
-              {numberToMoney(price)}
-              {' '}
-              원
-            </div>
-          </li>
-        ))}
+        {tickets && Array.from(tickets).map(([key, value]) => {
+          const [eventTime, section] = key.split('#');
+
+          return (
+            <li
+              key={`${eventTime}-${section}`}
+              className={styles.ticketInfo}
+            >
+              <div className={styles.eventDate}>
+                {eventTime}
+              </div>
+              <div className={styles.section}>
+                {section}
+              </div>
+              <button
+                type="button"
+                className={styles.button}
+                onClick={() => handleAddTicket(eventTime, section)}
+              >
+                <svg width="16" height="16" viewBox="0 0 100 100">
+                  <line x1="50" y1="20" x2="50" y2="80" stroke="black" strokeWidth="10" />
+                  <line x1="20" y1="50" x2="80" y2="50" stroke="black" strokeWidth="10" />
+                </svg>
+              </button>
+              <div className={styles.countValue}>
+                {value}
+              </div>
+              <button
+                type="button"
+                className={styles.button}
+                onClick={() => handleRemoveTicket(eventTime, section)}
+              >
+                <svg width="16" height="16" viewBox="0 0 100 100">
+                  <line x1="20" y1="50" x2="80" y2="50" stroke="black" strokeWidth="10" />
+                </svg>
+              </button>
+              <div className={styles.ticketPrice}>
+                {numberToMoney(value * sectionPrices.get(section))}
+                {' '}
+                원
+              </div>
+            </li>
+          );
+        })}
       </ul>
-      {tickets && tickets.length > 0 && (
+      {tickets && (
         <div className={styles.total}>
           <div>
             총
             {' '}
-            {tickets.length}
+            {Array.from(tickets).reduce((acc, cur) => acc + cur[1], 0)}
             {' '}
             매
           </div>
           <div>
-            {numberToMoney(tickets.reduce((acc, cur) => acc + cur.price, 0))}
+            {numberToMoney(Array.from(tickets).reduce((acc, [key, value]) => {
+              const [eventTime, section] = key.split('#');
+
+              return acc + (value * sectionPrices.get(section));
+            }, 0))}
             {' '}
             원
           </div>

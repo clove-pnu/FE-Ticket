@@ -9,6 +9,7 @@ import Ticketing from '../components/ticket/Ticketing';
 import TicketBasket from '../components/ticket/TicketBasket';
 import TicketingResult from '../components/ticket/TicketingResult';
 import useTitle from '../hooks/useTitle';
+import useTicketDispatch from '../hooks/useTicketDispatch';
 
 export default function PlayTicketingPage() {
   const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
@@ -18,14 +19,19 @@ export default function PlayTicketingPage() {
 
   const namespace = window.location.pathname.split('/')[1];
 
+  const ticketDispatch = useTicketDispatch();
+
   useTitle(`${playData?.name || '공연'} | Clove 티켓`);
 
   useEffect(() => {
+    // Do not use like this in production
+    // ====================================
     const resultStr = localStorage.getItem('temp');
     localStorage.removeItem('temp');
 
     if (resultStr !== null) {
       setResult(JSON.parse(resultStr));
+      // ====================================
     } else {
       fetchWithHandler(() => getEvent(namespace), {
         onSuccess: (response) => {
@@ -37,6 +43,24 @@ export default function PlayTicketingPage() {
       });
     }
   }, [namespace]);
+
+  useEffect(() => {
+    if (playData) {
+      playData.eventTime.forEach((et) => {
+        playData.seatsAndPrices.forEach(({
+          section,
+        }) => {
+          ticketDispatch({
+            type: 'INIT',
+            payload: {
+              eventTime: et,
+              section,
+            },
+          });
+        });
+      });
+    }
+  }, [playData]);
 
   if (result !== null) {
     return <TicketingResult result={result} />;
@@ -60,13 +84,15 @@ export default function PlayTicketingPage() {
       {isTicketing ? (
         <div className={styles.ticketingContainer}>
           <Ticketing
-            eventTimeList={playData.eventTime}
-            namespace={namespace}
-            eventName={playData.name}
             venue={playData.venue}
           />
           <TicketBasket
             namespace={namespace}
+            eventTimeList={playData.eventTime}
+            sectionPrices={new Map(playData.seatsAndPrices.map(({
+              section,
+              price,
+            }) => [section, price]))}
           />
         </div>
       ) : (
