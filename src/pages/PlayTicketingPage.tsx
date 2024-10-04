@@ -8,6 +8,7 @@ import styles from './styles/PlayTicketingPage.module.css';
 import Ticketing from '../components/ticket/Ticketing';
 import TicketBasket from '../components/ticket/TicketBasket';
 import TicketingResult from '../components/ticket/TicketingResult';
+import useTitle from '../hooks/useTitle';
 
 export default function PlayTicketingPage() {
   const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
@@ -16,6 +17,8 @@ export default function PlayTicketingPage() {
   const [result, setResult] = useState<Ticket[]>(null);
 
   const namespace = window.location.pathname.split('/')[1];
+
+  useTitle(`${playData?.name || '공연'} | Clove 티켓`);
 
   useEffect(() => {
     const resultStr = localStorage.getItem('temp');
