@@ -7,6 +7,13 @@ export interface Ticket {
   count: number;
 }
 
+export interface TicketBuy {
+  eventName: string;
+  section: string;
+  price: number;
+  eventTime: string;
+}
+
 export interface TicketAction {
   type: 'INIT' | 'ADD' | 'REMOVE';
   payload: {
@@ -28,6 +35,14 @@ export interface PlayDescription {
   image: string;
 }
 
+export interface Merch {
+  id: number;
+  name: string;
+  price: number;
+  count: number;
+  image: string;
+}
+
 export interface TicketingPlayDetail {
   id: number;
   name: string;
@@ -41,6 +56,7 @@ export interface TicketingPlayDetail {
   endDate: string;
   bookingStartDate: string;
   bookingEndDate: string;
+  merches: Merch[];
 }
 
 export interface SeatInfo {
@@ -66,3 +82,13 @@ export interface Venue {
   }
   sections: string[];
 }
+
+export interface Merchandise {
+  image: string;
+  name: string;
+  namespace: string;
+  price: number;
+  count: number;
+}
+
+export type Tab = 'info' | 'ticket' | 'merchandise';

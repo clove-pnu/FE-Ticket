@@ -57,7 +57,7 @@ module.exports = (_, argv) => {
         name: 'ticket',
         filename: 'remoteEntry.js',
         remotes: {
-          auth: `auth@${isProduction ? `${serverURL}/page/auth` : 'http://localhost:3001'}/remoteEntry.js`,
+          auth: `auth@${serverURL}/page/auth/remoteEntry.js`,
         },
         shared: ['react', 'react-dom', 'axios'],
       }),
@@ -76,7 +76,9 @@ module.exports = (_, argv) => {
       historyApiFallback: true,
       proxy: [
         {
-          context: ['/auth', '/et/event', '/et/seat', '/rose/seat', '/rose/event'],
+          context: ['/auth', '/default/auth', '/default/merch', '/default/kakao', '/default/event', '/pino/event', '/pino/seat', '/rose/seat', '/rose/event',
+            '/test60/merch', '/test60/event', '/test60/ticket', '/test60/seat',
+          ],
           target: serverURL,
         },
       ],
