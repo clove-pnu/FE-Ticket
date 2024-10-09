@@ -9,7 +9,6 @@ import Ticketing from '../components/ticket/Ticketing';
 import TicketBasket from '../components/ticket/TicketBasket';
 import TicketingResult from '../components/ticket/TicketingResult';
 import useTitle from '../hooks/useTitle';
-import useTicketDispatch from '../hooks/useTicketDispatch';
 import TicketingTab from '../components/ticket/TicketingTab';
 import MerchandiseBasket from '../components/ticket/MerchandiseBasket';
 import MerchandiseResult from '../components/ticket/MerchandiseResult';
@@ -22,8 +21,6 @@ export default function PlayTicketingPage() {
   const [merchandiseResult, setMerchandiseResult] = useState(null);
 
   const namespace = window.location.pathname.split('/')[1];
-
-  const ticketDispatch = useTicketDispatch();
 
   useTitle(`${playData?.name || '공연'} | Clove 티켓`);
 
@@ -52,24 +49,6 @@ export default function PlayTicketingPage() {
       });
     }
   }, [namespace]);
-
-  useEffect(() => {
-    if (playData) {
-      playData.eventTime.forEach((et) => {
-        playData.seatsAndPrices.forEach(({
-          section,
-        }) => {
-          ticketDispatch({
-            type: 'INIT',
-            payload: {
-              eventTime: et,
-              section,
-            },
-          });
-        });
-      });
-    }
-  }, [playData]);
 
   if (ticketResult !== null) {
     return <TicketingResult result={ticketResult} />;
@@ -104,15 +83,13 @@ export default function PlayTicketingPage() {
         && (
         <div className={styles.ticketingContainer}>
           <Ticketing
+            namespace={namespace}
             venue={playData.venue}
+            eventName={playData.name}
+            eventTimeList={playData.eventTime}
           />
           <TicketBasket
             namespace={namespace}
-            eventName={playData.name}
-            sectionPrices={new Map(playData.seatsAndPrices.map(({
-              section,
-              price,
-            }) => [section, price]))}
           />
         </div>
         )}

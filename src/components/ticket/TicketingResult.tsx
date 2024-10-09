@@ -1,13 +1,9 @@
+import { Ticket } from '../../utils/type';
 import styles from '../styles/TicketingResult.module.css';
 import { numberToMoney } from '../../utils/convert';
 import Button from '../common/Button';
 
-export default function TicketingResult({ result }: { result: {
-  eventTime: string;
-  section: string;
-  count: number;
-  price: number;
-}[] }) {
+export default function TicketingResult({ result }: { result: Ticket[] }) {
   const handleHome = () => {
     window.location.reload();
   };
@@ -19,7 +15,7 @@ export default function TicketingResult({ result }: { result: {
         <div>
           총
           {' '}
-          {result.reduce((acc, cur) => acc + cur.count, 0)}
+          {result.length}
           {' '}
           매
         </div>
@@ -33,20 +29,20 @@ export default function TicketingResult({ result }: { result: {
         <div className={styles.category}>
           <div className={styles.eventTime}>공연 일자</div>
           <div className={styles.section}>구역</div>
-          <div className={styles.seatNumber}>수량</div>
+          <div className={styles.seatNumber}>좌석 번호</div>
           <div className={styles.price}>가격</div>
         </div>
         <ul>
           {result.map(({
-            eventTime, section, count, price,
+            eventTime, section, seatNumber, price,
           }) => (
             <li
-              key={`${eventTime}-${section}`}
+              key={`${eventTime}-${section}-${seatNumber}`}
               className={styles.ticket}
             >
               <div className={styles.eventTime}>{eventTime}</div>
               <div className={styles.section}>{section}</div>
-              <div className={styles.seatNumber}>{count}</div>
+              <div className={styles.seatNumber}>{seatNumber}</div>
               <div className={styles.price}>{numberToMoney(price)}</div>
             </li>
           ))}

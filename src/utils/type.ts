@@ -4,9 +4,7 @@ export interface Ticket {
   seatNumber: number;
   price: number;
   eventTime: string;
-  count: number;
 }
-
 export interface TicketBuy {
   eventName: string;
   section: string;
@@ -15,11 +13,8 @@ export interface TicketBuy {
 }
 
 export interface TicketAction {
-  type: 'INIT' | 'ADD' | 'REMOVE';
-  payload: {
-    eventTime: string;
-    section: string;
-  };
+  type: 'ADD' | 'REMOVE';
+  payload: Ticket;
 }
 
 export interface SeatsAndPrices {
@@ -60,9 +55,12 @@ export interface TicketingPlayDetail {
 }
 
 export interface SeatInfo {
+  id: string;
   eventName: string;
   section: string;
+  seatNumber: number;
   price: number;
+  reservationStatus: 'YES' | 'NO';
   eventTime: string;
 }
 
@@ -73,6 +71,16 @@ export interface ReservedTicket {
   section: string;
 }
 
+export interface Seat {
+  x: number;
+  y: number;
+}
+
+export interface Section {
+  sectionName: string;
+  seats: Seat[];
+}
+
 export interface Venue {
   name: string;
   backgroundImage: string;
@@ -80,7 +88,7 @@ export interface Venue {
     width: number;
     height: number;
   }
-  sections: string[];
+  sections: Section[];
 }
 
 export interface Merchandise {

@@ -1,34 +1,25 @@
 import { createContext, ReactNode, useReducer } from 'react';
-import { TicketAction } from '../utils/type';
+import { Ticket, TicketAction } from '../utils/type';
 
-function reducer(state: Map<string, number>, action: TicketAction) {
+function reducer(state: Ticket[], action: TicketAction) {
   const { type, payload } = action;
   switch (type) {
-    case 'INIT': {
-      const newMap = new Map(state);
-      newMap.set(`${payload.eventTime}#${payload.section}`, 0);
-
-      return newMap;
-    }
-
-    case 'ADD': {
-      const key = `${payload.eventTime}#${payload.section}`;
-      const newMap = new Map(state);
-      newMap.set(key, newMap.get(key) + 1);
-
-      return newMap;
-    }
-
-    case 'REMOVE': {
-      const key = `${payload.eventTime}#${payload.section}`;
-      const newMap = new Map(state);
-      const prev = newMap.get(key);
-      if (prev > 0) {
-        newMap.set(key, prev - 1);
+    case 'ADD':
+      if (state.find((s) => s.eventName === payload.eventName
+        && s.seatNumber === payload.seatNumber
+        && s.section === payload.section
+        && s.eventTime === payload.eventTime) === undefined) {
+        return [...state, payload];
       }
+      return state;
 
-      return newMap;
-    }
+    case 'REMOVE':
+      return state.filter(
+        (s) => !(s.eventName === payload.eventName
+          && s.seatNumber === payload.seatNumber
+          && s.section === payload.section
+          && s.eventTime === payload.eventTime),
+      );
 
     default:
       return state;
@@ -39,7 +30,7 @@ export const TicketContext = createContext(null);
 export const TicketDispatchContext = createContext(null);
 
 export default function TicketProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, new Map());
+  const [state, dispatch] = useReducer(reducer, []);
 
   return (
     <TicketContext.Provider value={state}>
