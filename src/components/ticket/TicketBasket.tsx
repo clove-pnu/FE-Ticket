@@ -5,47 +5,74 @@ import Button from '../common/Button';
 import styles from '../styles/TicketBasket.module.css';
 import useTicket from '../../hooks/useTicket';
 import useTicketDispatch from '../../hooks/useTicketDispatch';
+import { TicketBuy } from '../../utils/type';
 
 interface TicketBasketProps {
   namespace: string;
-  eventTimeList: string[];
   sectionPrices: Map<string, number>;
+  eventName: string;
 }
 
 export default function TicketBasket({
   namespace,
-  eventTimeList,
   sectionPrices,
+  eventName,
 }: TicketBasketProps) {
   const tickets = useTicket();
   const ticketDispatch = useTicketDispatch();
 
   const handleBuyTickets = () => {
-    // fetchWithHandler(() => buySeats({
-    //   namespace,
-    //   tickets,
-    // }), {
-    //   onSuccess: async (response) => {
-    //     console.log(response);
-    //     localStorage.setItem('temp', JSON.stringify(tickets));
+    console.log(tickets);
 
-    //     if (response.data?.kakaoReadyResponse) {
-    //       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    fetchWithHandler(() => buySeats({
+      namespace,
+      tickets: Array.from(tickets).map(([key, value]) => {
+        const [eventTime, section] = key.split('#');
+        const count = value;
 
-    //       if (isMobile) {
-    //         window.location.href = response.data.kakaoReadyResponse.next_redirect_mobile_url;
-    //       } else {
-    //         window.location.href = response.data.kakaoReadyResponse.next_redirect_pc_url;
-    //       }
-    //     } else {
-    //       alert('구매가 완료되었습니다.');
-    //       window.location.href = process.env.NODE_ENV === 'production' ? './play/result' : './result';
-    //     }
-    //   },
-    //   onError: () => {
-    //     alert('구매에 실패하였습니다.');
-    //   },
-    // });
+        const result: TicketBuy[] = [];
+        for (let i = 0; i < count; i += 1) {
+          result.push({
+            eventName,
+            section,
+            price: sectionPrices.get(section),
+            eventTime,
+          });
+        }
+
+        return result;
+      }).flat(),
+    }), {
+      onSuccess: async (response) => {
+        console.log(response);
+        localStorage.setItem('ticketTemp', JSON.stringify(Array.from(tickets).map(([left, count]) => {
+          const [eventTime, section] = left.split('#');
+
+          return {
+            eventTime,
+            section,
+            price: sectionPrices.get(section) * count,
+            count,
+          };
+        })));
+
+        if (response.data?.kakaoReadyResponse) {
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+          if (isMobile) {
+            window.location.href = response.data.kakaoReadyResponse.next_redirect_mobile_url;
+          } else {
+            window.location.href = response.data.kakaoReadyResponse.next_redirect_pc_url;
+          }
+        } else {
+          alert('구매가 완료되었습니다.');
+          window.location.reload();
+        }
+      },
+      onError: () => {
+        alert('구매에 실패하였습니다.');
+      },
+    });
   };
 
   const handleAddTicket = (eventTime, section) => {

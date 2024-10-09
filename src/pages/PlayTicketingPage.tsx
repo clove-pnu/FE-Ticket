@@ -26,8 +26,8 @@ export default function PlayTicketingPage() {
   useEffect(() => {
     // Do not use like this in production
     // ====================================
-    const resultStr = localStorage.getItem('temp');
-    localStorage.removeItem('temp');
+    const resultStr = localStorage.getItem('ticketTemp');
+    localStorage.removeItem('ticketTemp');
 
     if (resultStr !== null) {
       setResult(JSON.parse(resultStr));
@@ -88,11 +88,11 @@ export default function PlayTicketingPage() {
           />
           <TicketBasket
             namespace={namespace}
-            eventTimeList={playData.eventTime}
             sectionPrices={new Map(playData.seatsAndPrices.map(({
               section,
               price,
             }) => [section, price]))}
+            eventName={playData.name}
           />
         </div>
       ) : (

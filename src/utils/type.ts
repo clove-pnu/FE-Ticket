@@ -7,6 +7,13 @@ export interface Ticket {
   count: number;
 }
 
+export interface TicketBuy {
+  eventName: string;
+  section: string;
+  price: number;
+  eventTime: string;
+}
+
 export interface TicketAction {
   type: 'INIT' | 'ADD' | 'REMOVE';
   payload: {
