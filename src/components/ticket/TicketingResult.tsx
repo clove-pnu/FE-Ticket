@@ -29,20 +29,20 @@ export default function TicketingResult({ result }: { result: Ticket[] }) {
         <div className={styles.category}>
           <div className={styles.eventTime}>공연 일자</div>
           <div className={styles.section}>구역</div>
-          <div className={styles.seatNumber}>좌석 번호</div>
+          <div className={styles.seatNumber}>수량</div>
           <div className={styles.price}>가격</div>
         </div>
         <ul>
           {result.map(({
-            eventTime, section, seatNumber, price,
-          }) => (
+            eventTime, section, count, price,
+          }) => count > 0 && (
             <li
-              key={`${eventTime}-${section}-${seatNumber}`}
+              key={`${eventTime}-${section}`}
               className={styles.ticket}
             >
               <div className={styles.eventTime}>{eventTime}</div>
               <div className={styles.section}>{section}</div>
-              <div className={styles.seatNumber}>{seatNumber}</div>
+              <div className={styles.seatNumber}>{count}</div>
               <div className={styles.price}>{numberToMoney(price)}</div>
             </li>
           ))}

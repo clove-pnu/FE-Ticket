@@ -9,13 +9,16 @@ import { TicketBuy } from '../../utils/type';
 
 interface TicketBasketProps {
   namespace: string;
-  sectionPrices: Map<string, number>;
+  ticketInfo: Map<string, {
+    price: number;
+    remainCount: number;
+  }>;
   eventName: string;
 }
 
 export default function TicketBasket({
   namespace,
-  sectionPrices,
+  ticketInfo,
   eventName,
 }: TicketBasketProps) {
   const tickets = useTicket();
@@ -35,7 +38,7 @@ export default function TicketBasket({
           result.push({
             eventName,
             section,
-            price: sectionPrices.get(section),
+            price: ticketInfo.get(`${eventTime}#${section}`).price,
             eventTime,
           });
         }
@@ -51,7 +54,7 @@ export default function TicketBasket({
           return {
             eventTime,
             section,
-            price: sectionPrices.get(section) * count,
+            price: ticketInfo.get(`${eventTime}#${section}`).price * count,
             count,
           };
         })));
@@ -122,7 +125,12 @@ export default function TicketBasket({
               className={styles.ticketInfo}
             >
               <div className={styles.eventDate}>
-                {eventTime}
+                <div>{eventTime}</div>
+                <div className={styles.remain}>
+                  {ticketInfo.get(`${eventTime}#${section}`).remainCount}
+                  {' '}
+                  개 남음
+                </div>
               </div>
               <div className={styles.section}>
                 {section}
@@ -150,7 +158,7 @@ export default function TicketBasket({
                 </svg>
               </button>
               <div className={styles.ticketPrice}>
-                {numberToMoney(value * sectionPrices.get(section))}
+                {numberToMoney(value * ticketInfo.get(`${eventTime}#${section}`).price)}
                 {' '}
                 원
               </div>
@@ -171,7 +179,7 @@ export default function TicketBasket({
             {numberToMoney(Array.from(tickets).reduce((acc, [key, value]) => {
               const [eventTime, section] = key.split('#');
 
-              return acc + (value * sectionPrices.get(section));
+              return acc + (value * ticketInfo.get(`${eventTime}#${section}`).price);
             }, 0))}
             {' '}
             원
