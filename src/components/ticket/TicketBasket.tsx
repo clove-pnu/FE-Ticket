@@ -79,13 +79,16 @@ export default function TicketBasket({
   };
 
   const handleAddTicket = (eventTime, section) => {
-    ticketDispatch({
-      type: 'ADD',
-      payload: {
-        eventTime,
-        section,
-      },
-    });
+    const keyStr = `${eventTime}#${section}`;
+    if (tickets.get(keyStr) < ticketInfo.get(keyStr).remainCount) {
+      ticketDispatch({
+        type: 'ADD',
+        payload: {
+          eventTime,
+          section,
+        },
+      });
+    }
   };
 
   const handleRemoveTicket = (eventTime, section) => {
