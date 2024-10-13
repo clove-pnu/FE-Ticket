@@ -13,6 +13,7 @@ import useTicketDispatch from '../hooks/useTicketDispatch';
 import TicketingTab from '../components/ticket/TicketingTab';
 import MerchandiseBasket from '../components/ticket/MerchandiseBasket';
 import MerchandiseResult from '../components/ticket/MerchandiseResult';
+import { getSeats } from '../apis/seat';
 
 export default function PlayTicketingPage() {
   const [playData, setPlayData] = useState<TicketingPlayDetail>(null);
@@ -20,6 +21,7 @@ export default function PlayTicketingPage() {
   const [tab, setTab] = useState<Tab>('info');
   const [ticketResult, setTicketResult] = useState<Ticket[]>(null);
   const [merchandiseResult, setMerchandiseResult] = useState(null);
+  const [ticketInfo, setTicketInfo] = useState(null);
 
   const namespace = window.location.pathname.split('/')[1];
 
@@ -52,6 +54,44 @@ export default function PlayTicketingPage() {
       });
     }
   }, [namespace]);
+
+  useEffect(() => {
+    if (playData) {
+      fetchWithHandler(() => getSeats(namespace), {
+        onSuccess: (response) => {
+          const filteredResult = response.data.filter((s) => s.eventName === playData.name);
+
+          const eventTimeList = [...new Set([...filteredResult.map((s) => s.eventTime)])];
+          const sectionList = [...new Set([...filteredResult.map((s) => s.section)])];
+
+          const ticketData = eventTimeList.map((et, eti) => sectionList.map((s, si) => ({
+            id: eti * sectionList.length + si,
+            eventTime: et,
+            section: s,
+            price: filteredResult.find((r) => r.section === s).price,
+            remainCount: filteredResult.filter((r) => r.eventTime === et && r.section === s && r.reservationStatus === 'NO').length,
+          }))).flat();
+
+          setTicketInfo(ticketData);
+        },
+        onError: () => {},
+      });
+    }
+  }, [namespace, playData]);
+
+  useEffect(() => {
+    if (ticketInfo) {
+      ticketInfo.forEach((t) => {
+        ticketDispatch({
+          type: 'INIT',
+          payload: {
+            eventTime: t.eventTime,
+            section: t.section,
+          },
+        });
+      });
+    }
+  }, [ticketInfo]);
 
   useEffect(() => {
     if (playData) {
@@ -109,10 +149,15 @@ export default function PlayTicketingPage() {
           <TicketBasket
             namespace={namespace}
             eventName={playData.name}
-            sectionPrices={new Map(playData.seatsAndPrices.map(({
+            ticketInfo={new Map(ticketInfo.map(({
+              eventTime,
               section,
               price,
-            }) => [section, price]))}
+              remainCount,
+            }) => [`${eventTime}#${section}`, {
+              price,
+              remainCount,
+            }]))}
           />
         </div>
         )}

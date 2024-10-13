@@ -47,6 +47,11 @@
   align-items: center;
 }
 
+.remain {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
 /* Mobile */
 @media (width < 1024px) {
   .container {

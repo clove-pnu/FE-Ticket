@@ -1,13 +1,9 @@
+import { Ticket } from '../../utils/type';
 import styles from '../styles/TicketingResult.module.css';
 import { numberToMoney } from '../../utils/convert';
 import Button from '../common/Button';
 
-export default function TicketingResult({ result }: { result: {
-  eventTime: string;
-  section: string;
-  count: number;
-  price: number;
-}[] }) {
+export default function TicketingResult({ result }: { result: Ticket[] }) {
   const handleHome = () => {
     window.location.reload();
   };
@@ -39,7 +35,7 @@ export default function TicketingResult({ result }: { result: {
         <ul>
           {result.map(({
             eventTime, section, count, price,
-          }) => (
+          }) => count > 0 && (
             <li
               key={`${eventTime}-${section}`}
               className={styles.ticket}
