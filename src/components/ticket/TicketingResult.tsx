@@ -15,7 +15,7 @@ export default function TicketingResult({ result }: { result: Ticket[] }) {
         <div>
           총
           {' '}
-          {result.length}
+          {result.reduce((acc, cur) => acc + cur.count, 0)}
           {' '}
           매
         </div>
